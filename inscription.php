@@ -9,7 +9,6 @@
 </head>
 <body>
     
-    <!-- url = http://localhost/labs/pip/pip/index.php ? -->
     <form action="" name="inscription" id="inscription"> 
         <input type="text" name="nom" id="nom" placeholder="Nom">
         <input type="text" name="prenom" id="prenom" placeholder="Prénom">
