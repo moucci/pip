@@ -8,7 +8,7 @@
     <title>connexion</title>
 </head>
 <body>
-    
+    <img src="assets\img\pip.svg" alt="logo">
     <form action="action.php" method="post" name="connexion" id="connexion"> 
         <input type="email" name="email" id="email" placeholder="Email">
         <input type="nom" name="nom" id="nom" placeholder="nom">
