@@ -1,5 +1,6 @@
 <?php
 
+
 $title = 'pip page de connexion afficher par le php'
 
 ?>
