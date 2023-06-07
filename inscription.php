@@ -15,6 +15,10 @@
         <input type="text" name="prenom" id="prenom" placeholder="Prénom">
         <input type="email" name="email" id="email" placeholder="Email">
         <input type="password" name="mdp" id="mdp" placeholder="Mot de passe">
+        <div>
+            <input type="checkbox" name="rgpd" id="rgpd">
+            <label for="rgpd">J'accepte la collecte de mes données</label>
+        </div>
         <button type="submit">S'inscrire</button>
     </form>
     
