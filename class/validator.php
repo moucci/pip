@@ -12,18 +12,21 @@ class Validator
      */
     public function checkName(string $name, string $value): bool|string
     {
+        $value =  trim($value) ;
+
         // Vérifier la variable vide
-        if (empty($value)) {
+        if (empty($value) ) {
             return "Le champ $name est requis.";
         }
         // Vérifier la longueur
-        if (strlen($value) < 2 || strlen($value) > 50) {
+        if (strlen($value) < 1 || strlen($value) > 100 ) {
             return "La longueur du $name est incorrecte. Le $name doit comporter entre 2 et 50 caractères.";
         }
         // Vérifier les caractères spéciaux
         if (!preg_match('/^[a-zA-ZÀ-ÿ\s\'\-]+$/', $value)) {
             return "Le $name contient des caractères spéciaux non autorisés.";
         }
+
         return true;
     }
 
