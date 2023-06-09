@@ -63,6 +63,7 @@ if (!empty($erreurs)) {
     foreach ($erreurs as $champ => $message) {
         echo ucfirst($champ) . " : " . $message . "<br>";
     }
+    die();
 }
 
 //Instancier la class config
