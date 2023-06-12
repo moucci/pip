@@ -1,13 +1,12 @@
 <?php
 session_start();
-//session_destroy();
-
 $_SESSION = (object)$_SESSION;
 
 //check if user is not connected befor to suscription
 if (!isset($_SESSION->is_connected)) {
     header('Location:connexion.php?is_not_connected');
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -19,6 +18,6 @@ if (!isset($_SESSION->is_connected)) {
     <title>Pip : Bienvenue</title>
 </head>
 <body>
-<H1><?php echo $title ?></H1>
+<H1></H1>
 </body>
 </html>

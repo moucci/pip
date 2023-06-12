@@ -2,32 +2,22 @@
 session_start();
 
 //convert session to object
-$_SESSION = (object)$_SESSION;
+
 
 //check if user is not connected befor to suscription
-if (isset($_SESSION->is_connected)) {
+if (isset($_SESSION['is_connected'])) {
     header('Location:gestions.php?is_connected');
 }
 
-
 if (!empty($_POST)) {
     require_once('class/validator.php');
-
-    //convert session to object
-    $_SESSION = (object)$_SESSION;
-
-
-    //check if user is not connected befor to suscription
-    if (isset($_SESSION->is_connected)) {
-        header('Location:gestions.php?is_connected');
-    }
 
 
     // Récupérer les données du formulaire
     $nom = $_POST['nom'] ?? '';
     $prenom = $_POST['prenom'] ?? '';
     $email = $_POST['email'] ?? '';
-    $mdp = $_POST['mot_de_passe'] ?? '';
+    $mdp = $_POST['mdp'] ?? '';
     $rgpd = $_POST['rgpd'] ?? 0;
 
     // Tableau pour stocker les messages d'erreur
@@ -57,10 +47,20 @@ if (!empty($_POST)) {
         $erreurs['mdp'] = $validationMotDePasse;
     }
 
+    //check rgpd
+
+    if ($rgpd != 1) {
+        $erreurs['rgpd'] = 'Veuillez accepter la collecte des vos informations';
+    }
+
     // Vérifier s'il y a des erreurs
     if (empty($erreurs)) {
-        exit('start register');
+        $process = signupConseiller($email, $mdp, $nom, $prenom, $rgpd);
+        if ($process !== true) {
+            $msgError = $process;
+        }
     }
+
 
 }
 
@@ -81,34 +81,33 @@ if (!empty($_POST)) {
     <img src="assets\img\pip.svg" alt="logo">
     <h1>Ça coule de source</h1>
     <h2>Inscription</h2>
-    <?php
-    if (isset($_GET['register']) && $_GET['register'] === 'true'):
-        echo 'connexion réussie';
-    else :
-        ?>
-        <form action="inscription.php" method="post" name="inscription">
-            <span><?= (isset($erreurs['nom'])) ? $erreurs['nom'] : '' ?></span>
-            <input type="text" name="nom" value="" id="nom" placeholder="Nom">
-            <span><?= (isset($erreurs['prenom'])) ? $erreurs['prenom'] : '' ?></span>
+    <h3 style="color: red"><?= (isset($msgError)) ? $msgError : '' ?></h3>
+    <form action="inscription.php" method="post" name="inscription">
+        <span><?= (isset($erreurs['nom'])) ? $erreurs['nom'] : '' ?></span>
+        <input type="text" value="<?= isset($_POST['nom']) ? htmlspecialchars($_POST['nom']) : '' ?>" name="nom"
+               value="" id="nom" placeholder="Nom">
 
-            <input type="text" name="prenom" id="prenom" placeholder="Prénom">
-            <span><?= (isset($erreurs['email'])) ? $erreurs['email'] : '' ?></span>
+        <span><?= (isset($erreurs['prenom'])) ? $erreurs['prenom'] : '' ?></span>
+        <input type="text" value="<?= isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : '' ?>"
+               name="prenom" id="prenom" placeholder="Prénom">
 
-            <input type="email" name="email" id="email" placeholder="Email">
-            <span><?= (isset($erreurs['mdp'])) ? $erreurs['mdp'] : '' ?></span>
+        <span><?= (isset($erreurs['email'])) ? $erreurs['email'] : '' ?></span>
+        <input type="email" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>"
+               name="email" id="email" placeholder="Email">
 
-            <input type="password" name="mdp" id="mdp" placeholder="Mot de passe">
-            <div>
-                <input type="checkbox" name="rgpd" id="rgpd">
-                <label for="rgpd">J'accepte la collecte de mes données</label>
-                <span><?= (isset($erreurs['rgpd'])) ? $erreurs['rgpd'] : '' ?></span>
+        <span><?= (isset($erreurs['mdp'])) ? $erreurs['mdp'] : '' ?></span>
+        <input type="password" value="Newbie@89123456789789" autocomplete="false" name="mdp" id="mdp"
+               placeholder="Mot de passe">
 
-            </div>
-            <button type="submit">S'inscrire</button>
-        </form>
-    <?php
-    endif;
-    ?>
+        <div>
+            <input type="checkbox" <?= (isset($rgpd) && $rgpd) ? 'checked' : '' ?> value="1" name="rgpd"
+                   id="rgpd">
+            <label for="rgpd">J'accepte la collecte de mes données</label>
+            <span><?= (isset($erreurs['rgpd'])) ? $erreurs['rgpd'] : '' ?></span>
+        </div>
+
+        <button type="submit">S'inscrire</button>
+    </form>
 </main>
 
 </body>

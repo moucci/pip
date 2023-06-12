@@ -1,5 +1,12 @@
 <?php
 
+session_start();
+
+//check if user is not connected befor to suscription
+if (isset($_SESSION['is_connected'])) {
+    header('Location:gestions.php?is_connected');
+}
+
 require_once('class/validator.php');
 
 // Récupérer les données du formulaire
@@ -26,6 +33,7 @@ if (!empty($erreurs)) {
 
 //try to connect user
 $process = loginConseiller($email, $mdp);
+
 if ($process !== true) {
     header("Location:connexion.php?process=$process");
 } else {

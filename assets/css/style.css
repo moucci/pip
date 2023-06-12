@@ -63,6 +63,9 @@ body {
   margin-bottom: 10px;
   display: block;
 }
+#inscription form > div {
+  text-align: center;
+}
 #inscription form > input {
   width: 300px;
   height: 30px;
