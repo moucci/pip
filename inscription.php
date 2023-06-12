@@ -88,7 +88,7 @@ if (!empty($_POST)) {
         ?>
         <form action="inscription.php" method="post" name="inscription">
             <span><?= (isset($erreurs['nom'])) ? $erreurs['nom'] : '' ?></span>
-            <input type="text" name="nom"  value="<?php (isset() ?> " id="nom" placeholder="Nom">
+            <input type="text" name="nom" value="" id="nom" placeholder="Nom">
             <span><?= (isset($erreurs['prenom'])) ? $erreurs['prenom'] : '' ?></span>
 
             <input type="text" name="prenom" id="prenom" placeholder="Prénom">
