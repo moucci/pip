@@ -11,7 +11,10 @@ try {
 } catch(PDOException $e) {
     echo "Erreur de connexion à la base de données : " . $e->getMessage();
 }
-?>
+?></br></br>
+<?php
+echo "Liste des conseillers";
+?> 
 
 </br>
 </br>

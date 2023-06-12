@@ -31,7 +31,7 @@ if (!empty($_POST)) {
     $rgpd = $_POST['rgpd'] ?? 0;
 
     // Tableau pour stocker les messages d'erreur
-    $erreurs = array();
+    $erreurs = [];
 
     // Vérification du champ nom
     $validationNom = checkName('nom', $nom);
