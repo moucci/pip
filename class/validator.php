@@ -91,8 +91,8 @@ function loginConseiller(string $email, string $mdp)
 
     //if user not existe
     if ($req->rowCount() === 0) return 'error';
-
     $data = $req->fetch(PDO::FETCH_OBJ);
+
     //check pass word hash
     if (!password_verify($mdp, $data->mdp_hashed)) {
         return 'error';
@@ -109,10 +109,46 @@ function loginConseiller(string $email, string $mdp)
 }
 
 
+/**
+ * methode to register conseillers
+ * @param string $email
+ * @param string $mdp
+ * @param string $nom
+ * @param string $prenom
+ * @param int $rgpd
+ * @return string|void
+ */
 function signupConseiller(string $email, string $mdp, string $nom, string $prenom, int $rgpd)
 {
+    //try init connexion to data base
+    $db = getDb();
 
+    $query = "INSERT INTO conseillers  (nom , prenom ,email , mdp , rgpd  )
+                                    VALUES (:nom , :prenom , :email , :mdp , :rgpd)";
 
-    print_r(func_get_args());
+    //prepare query
+    $req = $db->prepare($query);
 
+    $req->bindParam(':nom', $nom, PDO::PARAM_STR);
+    $req->bindParam(':prenom', $prenom, PDO::PARAM_STR);
+    $req->bindParam(':email', $email, PDO::PARAM_STR);
+
+    //hash mdp
+    $mdp = password_hash($mdp, PASSWORD_ARGON2ID, ['const' => 10]);
+    $req->bindParam(':mdp', $mdp, PDO::PARAM_STR);
+    $req->bindParam(':rgpd', $rgpd, PDO::PARAM_INT);
+
+    //try ton insert new conseiller
+    try {
+        $req->execute();
+        //set session
+        $_SESSION['is_connected'] = true;
+        $_SESSION['name'] = $nom;
+        $_SESSION['id'] = $db->lastInsertId();
+        header('Location:https://pip.test/gestions.php?register=true',);
+    } catch (PDOException $error) {
+        if ($error->getCode() == '23000') {
+            return 'Conseiller déja inscrit';
+        } else return 'Une erreur technique est survenue. Veuillez réessayer ultérieurement. Merci de votre compréhension.';
+    }
 }
