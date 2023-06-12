@@ -76,6 +76,7 @@ $validationMotDePasse = checkPass($mdp);
 if ($validationMotDePasse !== true) {
     $erreurs['mot_de_passe'] = $validationMotDePasse;
 }
+$mdp = password_hash($mdp, PASSWORD_ARGON2ID, ['const' => 10]);
 
 // Vérifier s'il y a des erreurs
 if (!empty($erreurs)) {
@@ -109,22 +110,22 @@ $req->bindParam(':rgpd', $rgpd, PDO::PARAM_INT);
 
 
 ////try ton insert new conseiller
-//try {
-//    $req->execute();
-//    header('Location:https://pip.test/inscription.php?register=true',);
-//} catch (PDOException $error) {
-//    if ($error->getCode() == '23000') {
-//        echo 'Conseiller déja inscrit';
-//    }
-//}
+try {
+    $req->execute();
+    header('Location:https://pip.test/inscription.php?register=true',);
+} catch (PDOException $error) {
+    if ($error->getCode() == '23000') {
+        echo 'Conseiller déja inscrit';
+    }
+}
 
 
-
-$q = $db->prepare('select * from conseillers where 1 ');
-
-$q->execute() ;
-
-$data = $q->fetchAll(PDO::FETCH_OBJ);
+//
+//$q = $db->prepare('select * from conseillers where 1 ');
+//
+//$q->execute() ;
+//
+//$data = $q->fetchAll(PDO::FETCH_OBJ);
 
 
 

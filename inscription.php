@@ -5,10 +5,10 @@ session_start();
 $_SESSION = (object)$_SESSION;
 
 //check if user is not connected befor to suscription
-//if (isset($_SESSION->is_connected)) {
-//    echo 'utilisateur deja connecter , déconnecter vous avant de pouvoir vous inscrire';
-//    die();
-//}
+if (isset($_SESSION->is_connected)) {
+    echo 'utilisateur deja connecter , déconnecter vous avant de pouvoir vous inscrire';
+    die();
+}
 ?>
 
 <!DOCTYPE html>
