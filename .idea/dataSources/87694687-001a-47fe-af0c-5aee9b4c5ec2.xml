@@ -1120,109 +1120,134 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="316" parent="298" name="unique_conseiller">
+    <index id="316" parent="298" name="email">
+      <ColNames>email</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="317" parent="298" name="unique_conseiller">
       <ColNames>id_conseiller</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="317" parent="298" name="PRIMARY">
+    <key id="318" parent="298" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="318" parent="299" name="id">
+    <key id="319" parent="298" name="email">
+      <UnderlyingIndexName>email</UnderlyingIndexName>
+    </key>
+    <column id="320" parent="299" name="id">
       <AutoIncrement>7</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="319" parent="299" name="id_client">
+    <column id="321" parent="299" name="id_client">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="320" parent="299" name="type_compte">
+    <column id="322" parent="299" name="type_compte">
       <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="321" parent="299" name="solde">
-      <DasType>int|0s</DasType>
+    <column id="323" parent="299" name="solde">
+      <DasType>decimal(10,2 digit)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="322" parent="299" name="decouvert">
+    <column id="324" parent="299" name="decouvert">
       <DasType>int|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <foreign-key id="323" parent="299" name="unique_client">
+    <foreign-key id="325" parent="299" name="unique_client">
       <ColNames>id_client</ColNames>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
       <RefTableName>clients</RefTableName>
     </foreign-key>
-    <index id="324" parent="299" name="PRIMARY">
+    <index id="326" parent="299" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="325" parent="299" name="unique_client">
+    <index id="327" parent="299" name="unique_client">
       <ColNames>id_client</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="326" parent="299" name="PRIMARY">
+    <key id="328" parent="299" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="327" parent="300" name="id">
-      <AutoIncrement>3</AutoIncrement>
+    <column id="329" parent="300" name="id">
+      <AutoIncrement>89</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="328" parent="300" name="nom">
+    <column id="330" parent="300" name="nom">
       <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="329" parent="300" name="prenom">
+    <column id="331" parent="300" name="prenom">
       <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="330" parent="300" name="email">
+    <column id="332" parent="300" name="email">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="331" parent="300" name="mdp">
+    <column id="333" parent="300" name="mdp">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="332" parent="300" name="rgpd">
+    <column id="334" parent="300" name="rgpd">
       <DasType>tinyint(1)|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="333" parent="300" name="date_rgpd">
+    <column id="335" parent="300" name="date_rgpd">
       <DasType>timestamp|0s</DasType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <index id="334" parent="300" name="PRIMARY">
+    <index id="336" parent="300" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="335" parent="300" name="PRIMARY">
+    <index id="337" parent="300" name="unique_nom_prenom">
+      <ColNames>nom
+prenom</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="338" parent="300" name="email">
+      <ColNames>email</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="339" parent="300" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <key id="340" parent="300" name="unique_nom_prenom">
+      <UnderlyingIndexName>unique_nom_prenom</UnderlyingIndexName>
+    </key>
+    <key id="341" parent="300" name="email">
+      <UnderlyingIndexName>email</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>

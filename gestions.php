@@ -1,6 +1,13 @@
 <?php
+session_start();
+//session_destroy();
 
-$title = 'pip page de gestion afficher par le php'
+$_SESSION = (object)$_SESSION;
+
+//check if user is not connected befor to suscription
+if (!isset($_SESSION->is_connected)) {
+    header('Location:connexion.php?is_not_connected');
+}
 
 ?>
 <!DOCTYPE html>

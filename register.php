@@ -5,53 +5,25 @@ session_start();
 require_once('class/validator.php');
 
 
-/**
- * host for database
- * @var string
- */
-const  DB_HOST = "localhost";
-
-/**
- * name of database
- * @var string
- */
-const DB_NAME = "pip";
-
-/**
- * name user for database
- * @var string
- */
-const  DB_USER = "root";
-
-/**
- * password for database
- * @var string
- */
-const  DB_PASS = "";
-
-
 //convert session to object
 $_SESSION = (object)$_SESSION;
 
 
 ////check if user is not connected befor to suscription
-//if (isset($_SESSION->is_connected)) {
-//    echo 'utilisateur deja connecter , déconnecter vous avant de pouvoir vous inscrire';
-//    die();
-//}
+if (isset($_SESSION->is_connected)) {
+    header('Location:gestions.php?is_connected');
+}
 
 
 // Récupérer les données du formulaire
-$nom = $_POST['nom'] ?? 'zak';
-$prenom = $_POST['prenom'] ?? 'lepauvre';
-$email = $_POST['email'] ?? 'il-est-trop-con@paf.fr';
-$mdp = $_POST['mot_de_passe'] ?? 'A@8900000000000000000000000u';
+$nom = $_POST['nom'] ?? '';
+$prenom = $_POST['prenom'] ?? '';
+$email = $_POST['email'] ?? '';
+$mdp = $_POST['mot_de_passe'] ?? '';
 $rgpd = $_POST['rgpd'] ?? 0;
-
 
 // Tableau pour stocker les messages d'erreur
 $erreurs = array();
-
 
 // Vérification du champ nom
 $validationNom = checkName('nom', $nom);
@@ -76,7 +48,6 @@ $validationMotDePasse = checkPass($mdp);
 if ($validationMotDePasse !== true) {
     $erreurs['mot_de_passe'] = $validationMotDePasse;
 }
-$mdp = password_hash($mdp, PASSWORD_ARGON2ID, ['const' => 10]);
 
 // Vérifier s'il y a des erreurs
 if (!empty($erreurs)) {
@@ -85,26 +56,30 @@ if (!empty($erreurs)) {
         echo ucfirst($champ) . " : " . $message . "<br>";
     }
     die();
+
+    header('Location:inscription.php?errors=');
+
 }
 
 
+signupConseiller($email, $mdp, $nom, $prenom, $rgpd);
+
+exit();
 //try init connexion to data base
-try {
-    $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
-    $db = new PDO($dsn, DB_USER, DB_PASS);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    exit("Erreur de connexion : " . $e->getMessage());
-}
+$db = getDb();
 
 $query = "INSERT INTO conseillers  (nom , prenom ,email , mdp , rgpd  )
                                     VALUES (:nom , :prenom , :email , :mdp , :rgpd)";
 
 //prepare query
 $req = $db->prepare($query);
+
 $req->bindParam(':nom', $nom, PDO::PARAM_STR);
 $req->bindParam(':prenom', $prenom, PDO::PARAM_STR);
 $req->bindParam(':email', $email, PDO::PARAM_STR);
+
+//hash mdp
+$mdp = password_hash($mdp, PASSWORD_ARGON2ID, ['const' => 10]);
 $req->bindParam(':mdp', $mdp, PDO::PARAM_STR);
 $req->bindParam(':rgpd', $rgpd, PDO::PARAM_INT);
 
@@ -118,17 +93,6 @@ try {
         echo 'Conseiller déja inscrit';
     }
 }
-
-
-//
-//$q = $db->prepare('select * from conseillers where 1 ');
-//
-//$q->execute() ;
-//
-//$data = $q->fetchAll(PDO::FETCH_OBJ);
-
-
-
 
 
 

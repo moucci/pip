@@ -1,21 +1,36 @@
 <?php
 
-var_dump($_POST);
+require_once('class/validator.php');
 
-?>
-<!--<!DOCTYPE html>-->
-<!--<html lang="fr">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    <link href="connexion.css" rel="stylesheet">-->
-<!--    <title>connexion</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--    <img src="assets\img\pip.svg" alt="logo">-->
-<!--    <h1>--><?php //= $title ?><!--</h1>-->
-<!--</body>-->
-<!--</html>-->
-<!--<br>-->
+// Récupérer les données du formulaire
+$email = $_POST['email'] ?? '';
+$mdp = $_POST['mdp'] ?? '';
+// Tableau pour stocker les messages d'erreur
+$erreurs = array();
+// Vérification du champ adresse email
+$validationEmail = checkEmail($email);
+if ($validationEmail !== true) {
+    $erreurs['email'] = $validationEmail;
+}
+
+// Vérification du champ mot de passe
+$validationMotDePasse = checkPass($mdp);
+if ($validationMotDePasse !== true) {
+    $erreurs['mot_de_passe'] = $validationMotDePasse;
+}
+
+// Vérifier s'il y a des erreurs
+if (!empty($erreurs)) {
+    header('Location:connexion.php?process=error');
+}
+
+//try to connect user
+$process = loginConseiller($email, $mdp);
+if ($process !== true) {
+    header("Location:connexion.php?process=$process");
+} else {
+    //if user is connected redirect to gestion.php
+    header('Location:gestions.php');
+}
+
 

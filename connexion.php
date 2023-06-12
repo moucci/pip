@@ -6,8 +6,18 @@ $_SESSION = (object)$_SESSION;
 
 //check if user is not connected
 if (isset($_SESSION->is_connected)) {
-    header('Location:https://pip.test/gestion.php');
+    header('Location:gestions.php');
 }
+
+//if have process error in url
+if (isset($_GET['process']) && $_GET['process'] === 'error') {
+    $msgError = 'Email ou mot de passe incorrect. Veuillez réessayer.';
+} elseif (isset($_GET['process']) && $_GET['process'] === 'failed') {
+    $msgError = "Une erreur technique s'est produite. Veuillez nous excuser pour le désagrément. Veuillez réessayer ultérieurement.";
+} else {
+    $msgError = '';
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -23,6 +33,7 @@ if (isset($_SESSION->is_connected)) {
     <img src="assets\img\pip.svg" alt="logo">
     <h1>Ça coule de source</h1>
     <h2>CONNEXION</h2>
+    <h3><?= $msgError ?></h3>
     <form action="login.php" method="POST" name="connexion">
         <input type="email" name="email" id="email" placeholder="Email">
         <input type="password" name="mdp" id="mdp" placeholder="Mot de passe">

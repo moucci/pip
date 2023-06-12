@@ -1,5 +1,8 @@
 <?php
 
+//import config file
+require_once("class/config.php");
+
 
 /**
  * Valider le nom ou le prénom
@@ -65,4 +68,51 @@ function checkPass(string $value): bool|string
         return "Le mot de passe est invalide. Il doit contenir au moins 16 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial.";
     }
     return true;
+}
+
+/**
+ * Methode to register new conseiller
+ * set session if process success
+ * @param string $email
+ * @param string $mdp
+ * @return string|true error message | bool
+ */
+function loginConseiller(string $email, string $mdp)
+{
+
+    $db = getDb();
+
+    $req = $db->prepare('SELECT id ,  nom as name , email , mdp as mdp_hashed FROM conseillers  where email = :email');
+    $req->bindParam(':email', $email, PDO::PARAM_STR);
+
+    ////try ton insert new conseiller
+    if (!$req->execute()) return 'failed';
+
+
+    //if user not existe
+    if ($req->rowCount() === 0) return 'error';
+
+    $data = $req->fetch(PDO::FETCH_OBJ);
+    //check pass word hash
+    if (!password_verify($mdp, $data->mdp_hashed)) {
+        return 'error';
+    }
+
+    //set session
+    $_SESSION['is_connected'] = true;
+    $_SESSION['name'] = $data->name;
+    $_SESSION['id'] = $data->id;
+
+    return true;
+
+
+}
+
+
+function signupConseiller(string $email, string $mdp, string $nom, string $prenom, int $rgpd)
+{
+
+
+    print_r(func_get_args());
+
 }
