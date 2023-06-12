@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost"; // Nom du serveur de base de données
-$username = "root"; // Nom d'utilisateur de la base de données
-$password = ""; // Mot de passe de la base de données
-$dbname = "pip"; // Nom de la base de données
+$servername = "localhost"; 
+$username = "root"; 
+$password = ""; 
+$dbname = "pip"; 
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -14,7 +14,7 @@ try {
 ?>
 
 </br>
-
+</br>
 <?php
 // Exemple de requête pour récupérer des données
     $query = "SELECT * FROM conseillers";
@@ -25,7 +25,6 @@ try {
         echo "ID : " . $row['id'] . "<br>";
         echo "Nom : " . $row['nom'] . "<br>";
         echo "Email : " . $row['email'] . "<br>";
-        // ... Affichez d'autres colonnes selon votre schéma de base de données
         echo "<br>";
     }
     ?>
