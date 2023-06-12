@@ -12,25 +12,50 @@ body {
   margin: 20px;
 
 
-
-  & > input {
-    width: 300px;
-    height: 30px;
-    margin: auto;
-  }
-
-  & > button {
-    width: 100px;
-    height: 30px;
-    margin: auto;
-  }
-
-
   & > img {
     display: block;
-    width: 30%;
+    width: 90%;
+    max-width: 300px;
+    border-radius: 20px;
     margin: auto;
   }
+
+  h1 {
+    font-size: 30px;
+    padding: 20px;
+    margin: 0;
+  }
+  h2 {
+    font-size: 16px;
+    padding: 20px;
+    margin: 0;
+  }
+
+  form {
+    & > input {
+      width: 300px;
+      height: 30px;
+      margin: 0 auto 30px;
+      display: block;
+      padding: 10px;
+      border-radius: 50px;
+
+
+    }
+
+    .remember {
+      text-align: center;
+    }
+
+    button {
+      width: 100px;
+      height: 30px;
+      margin: 40px auto;
+      display: block;
+    }
+  }
+
+
 }
 
 #inscription {

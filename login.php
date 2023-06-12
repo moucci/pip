@@ -1,6 +1,6 @@
 <?php
 
-$title = "hola" ;
+var_dump($_POST);
 
 ?>
 <!--<!DOCTYPE html>-->
