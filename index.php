@@ -26,6 +26,7 @@ if (isset($_GET['process']) && $_GET['process'] === 'error') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="assets/css/style.css" rel="stylesheet">
+    <script src="assets/js/app.js" defer></script>
     <title>connexion</title>
 </head>
 <body>
@@ -40,7 +41,7 @@ if (isset($_GET['process']) && $_GET['process'] === 'error') {
             <input type="password" value="" autocomplete="false" name="mdp" id="mdp"
                    placeholder="Mot de passe">
             <span>
-                    <img src="assets/img/eyes.svg" alt="">
+                <img src="assets/img/eyes.svg" alt="">
                 </span>
         </div>
         <div class="remember">
@@ -48,11 +49,10 @@ if (isset($_GET['process']) && $_GET['process'] === 'error') {
             <label for="rgpd">Rester connecté</label>
         </div>
         <span class="margin-20">
-                vous n'avez pas encore de compte, veuillez vous inscrire.  <a href="inscription.php">veuillez vous inscrire</a>
-        </span>
+                vous n'avez pas encore de compte,  <a href="inscription.php">veuillez vous inscrire.</a>
+            </span>
         <button type="submit" value="OK">Se connecter</button>
     </form>
 </main>
-
 </body>
 </html>

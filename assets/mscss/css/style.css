@@ -115,4 +115,19 @@ body {
 }
 .clients .infos div p a:hover {
   color: blue;
+}
+
+.head_gestions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.head_gestions > img {
+  display: block;
+  width: 90%;
+  max-width: 300px;
+  border-radius: 20px;
+  margin: auto;
 }/*# sourceMappingURL=style.css.map */
