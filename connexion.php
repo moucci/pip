@@ -35,8 +35,8 @@ if (isset($_GET['process']) && $_GET['process'] === 'error') {
     <h2>CONNEXION</h2>
     <h3><?= $msgError ?></h3>
     <form action="login.php" method="POST" name="connexion">
-        <input type="email" value="hamid@gmail.com" name="email" id="email" placeholder="Email">
-        <input type="password" value="Newbie@89123456789789" name="mdp" id="mdp" placeholder="Mot de passe">
+        <input type="email" value="" name="email" id="email" placeholder="Email">
+        <input type="password" value="" name="mdp" id="mdp" placeholder="Mot de passe">
         <div class="remember">
             <input type="checkbox" name="remeberme" id="remeberme">
             <label for="rgpd">Rester connecté</label>

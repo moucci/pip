@@ -1,6 +1,12 @@
 <?php
-
+//set start
 session_start();
+
+//if user ask for logout , check  variable $_GET['logout'] &&$_SESSION['is_connected'])
+if (isset($_GET['logout']) && isset($_SESSION['is_connected'])) {
+    session_destroy();
+    header('Location: index.php');
+}
 
 //check if user is not connected befor to suscription
 if (isset($_SESSION['is_connected'])) {

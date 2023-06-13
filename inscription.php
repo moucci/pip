@@ -11,8 +11,6 @@ if (isset($_SESSION['is_connected'])) {
 
 if (!empty($_POST)) {
     require_once('class/validator.php');
-
-
     // Récupérer les données du formulaire
     $nom = $_POST['nom'] ?? '';
     $prenom = $_POST['prenom'] ?? '';
@@ -96,7 +94,7 @@ if (!empty($_POST)) {
                name="email" id="email" placeholder="Email">
 
         <span><?= (isset($erreurs['mdp'])) ? $erreurs['mdp'] : '' ?></span>
-        <input type="password" value="Newbie@89123456789789" autocomplete="false" name="mdp" id="mdp"
+        <input type="password" value="" autocomplete="false" name="mdp" id="mdp"
                placeholder="Mot de passe">
 
         <div>
