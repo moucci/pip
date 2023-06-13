@@ -7,6 +7,7 @@ session_start();
 //check if user is not connected befor to suscription
 if (isset($_SESSION['is_connected'])) {
     header('Location:gestions.php?is_connected');
+    die();
 }
 
 if (!empty($_POST)) {
@@ -106,7 +107,7 @@ if (!empty($_POST)) {
             </div>
 
 
-            <div>
+            <div class="remember">
                 <input type="checkbox" <?= (isset($rgpd) && $rgpd) ? 'checked' : '' ?> value="1" name="rgpd"
                        id="rgpd">
                 <label for="rgpd">J'accepte la collecte de mes données</label>

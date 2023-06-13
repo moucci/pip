@@ -6,11 +6,13 @@ session_start();
 if (isset($_GET['logout']) && isset($_SESSION['is_connected'])) {
     session_destroy();
     header('Location: index.php');
+    die();
 }
 
 //check if user is not connected befor to suscription
 if (isset($_SESSION['is_connected'])) {
     header('Location:gestions.php?is_connected');
+    die();
 }
 
 require_once('class/validator.php');
@@ -42,9 +44,11 @@ $process = loginConseiller($email, $mdp);
 
 if ($process !== true) {
     header("Location:index.php?process=$process");
+    die();
 } else {
     //if user is connected redirect to gestion.php
     header('Location:gestions.php');
+    die();
 }
 
 

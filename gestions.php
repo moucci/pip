@@ -2,9 +2,12 @@
 session_start();
 $_SESSION = (object)$_SESSION;
 
+print_r($_SESSION);
+
 //check if user is not connected befor to suscription
 if (!isset($_SESSION->is_connected)) {
-    header('Location:connexion.php?is_not_connected');
+    header('Location:index.php?is_not_connected');
+    die();
 }
 
 require_once("class/config.php");
@@ -21,29 +24,24 @@ require_once("class/config.php");
 </head>
 <body>
 
-    <div class="head_gestions">
-        <img src="assets\img\pip.svg" alt="logo">
-        <h1>Ça coule de source</h1>
-    </div>
+<div class="head_gestions">
+    <img src="assets\img\pip.svg" alt="logo">
+    <h1>Ça coule de source</h1>
+</div>
 
-<?php 
+<?php
 
 $db = getDb();
-
 
 $id = $_SESSION->id;
 
 $sql = "SELECT * FROM `clients` WHERE `id_conseiller` = $id";
 
-
-
 $requete = $db->query($sql);
 
 $clients = $requete->fetchAll(PDO::FETCH_ASSOC);
 
-
-
-foreach($clients as $client):
+foreach ($clients as $client):
     ?>
     <div class="clients">
 
@@ -69,12 +67,9 @@ foreach($clients as $client):
 
         </div>
     </div>
+<?php
+endforeach;
 
-
-<?php endforeach;
 ?>
-
-<!-- <?php echo "&id_client=".$client["id"] ?> -->
-
 </body>
 </html>

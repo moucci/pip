@@ -7,6 +7,7 @@ $_SESSION = (object)$_SESSION;
 //check if user is not connected
 if (isset($_SESSION->is_connected)) {
     header('Location:gestions.php');
+    die();
 }
 
 //if have process error in url

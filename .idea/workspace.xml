@@ -6,15 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="331b45af-857b-49cd-be89-2b97c02b47db" name="Changes" comment="add register page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mscss/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mscss/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mscss/css/style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mscss/css/style.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mscss/css/style.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mscss/css/style.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mscss/css/style.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mscss/css/style.min.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mscss/scss/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mscss/scss/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mscss/scss/style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mscss/scss/style.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/mscss/scss/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mscss/scss/style.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gestions.php" beforeDir="false" afterPath="$PROJECT_DIR$/gestions.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inscription.php" beforeDir="false" afterPath="$PROJECT_DIR$/inscription.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/liste_clients.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/liste_conseillers.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +124,7 @@
       <workItem from="1686567544472" duration="459000" />
       <workItem from="1686568050987" duration="435000" />
       <workItem from="1686568492767" duration="13463000" />
-      <workItem from="1686655984387" duration="3651000" />
+      <workItem from="1686655984387" duration="5777000" />
     </task>
     <task id="LOCAL-00001" summary="add register page">
       <created>1686292064398</created>
