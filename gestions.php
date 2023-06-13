@@ -21,6 +21,11 @@ require_once("class/config.php");
 </head>
 <body>
 
+    <div class="head_gestions">
+        <img src="assets\img\pip.svg" alt="logo">
+        <h1>Ça coule de source</h1>
+    </div>
+
 <?php 
 
 $db = getDb();
