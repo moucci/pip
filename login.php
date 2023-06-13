@@ -1,6 +1,12 @@
 <?php
-
+//set start
 session_start();
+
+//if user ask for logout , check  variable $_GET['logout'] &&$_SESSION['is_connected'])
+if (isset($_GET['logout']) && isset($_SESSION['is_connected'])) {
+    session_destroy();
+    header('Location: index.php');
+}
 
 //check if user is not connected befor to suscription
 if (isset($_SESSION['is_connected'])) {
@@ -28,14 +34,14 @@ if ($validationMotDePasse !== true) {
 
 // Vérifier s'il y a des erreurs
 if (!empty($erreurs)) {
-    header('Location:connexion.php?process=error');
+    header('Location:index.php?process=error');
 }
 
 //try to connect user
 $process = loginConseiller($email, $mdp);
 
 if ($process !== true) {
-    header("Location:connexion.php?process=$process");
+    header("Location:index.php?process=$process");
 } else {
     //if user is connected redirect to gestion.php
     header('Location:gestions.php');

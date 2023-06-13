@@ -25,6 +25,7 @@ body {
     padding: 20px;
     margin: 0;
   }
+
   h2 {
     font-size: 16px;
     padding: 20px;
@@ -65,31 +66,39 @@ body {
   justify-content: center;
   gap: 20px;
 
-  & > input {
+  input {
     width: 300px;
     height: 30px;
   }
 
-  & > button {
+  .pass {
+    position: relative;
+    width: 300px;
+    height: 30px;
+
+    img {
+      position: absolute;
+      right: 0;
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  button {
     width: 100px;
     height: 30px;
   }
 
 }
 
-
-
-
-
-
-.clients{
+.clients {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 50px;
 
 
-  .image{
+  .image {
     border: 1px solid black;
     border-right: none;
     height: 80px;
@@ -98,14 +107,15 @@ body {
     align-items: center;
     justify-content: center;
 
-    div{
+    div {
       width: 40px;
       height: 40px;
       background-color: black;
     }
 
   }
-  .infos{
+
+  .infos {
     width: 60%;
     border: 1px solid black;
     height: 80px;
@@ -114,7 +124,7 @@ body {
     align-items: center;
     justify-content: space-evenly;
 
-    ul{
+    ul {
       list-style-type: none;
       display: flex;
       align-items: center;
@@ -122,22 +132,24 @@ body {
       margin: 0;
     }
 
-    .trait{
+    .trait {
       border-top: 1px solid black;
       width: 100%;
       height: 0;
     }
 
-    div{
+    div {
       display: flex;
       align-items: center;
       gap: 100px;
 
-      p{
+      p {
         margin: 0;
-        a{
+
+        a {
           color: black;
-          &:hover{
+
+          &:hover {
             color: blue;
           }
         }

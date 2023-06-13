@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   color: black;
 }
@@ -39,26 +43,70 @@ body {
   }
 
   form {
-    & > input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+
+    span {
+      color: red;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    & > div {
+      text-align: center;
+    }
+
+    input {
       width: 300px;
       height: 30px;
       margin: 0 auto 30px;
       display: block;
-      padding: 10px;
-      border-radius: 50px;
-
-
+      padding: 30px;
+      border-radius: 10px;
     }
 
-    .remember {
-      text-align: center;
+
+    .pass {
+      position: relative;
+      width: 300px;
+
+      input {
+        padding-right: 60px;
+      }
+
+      span {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        width: 50px;
+        height: 50px;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
     }
+
 
     button {
       width: 100px;
       height: 30px;
       margin: 40px auto;
       display: block;
+    }
+
+    .remember {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+
+      input {
+        width: 50px;
+        margin: 0;
+      }
     }
   }
 
@@ -74,6 +122,11 @@ body {
   margin: 20px;
 
   form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+
     span {
       color: red;
       margin-bottom: 10px;
@@ -84,15 +137,48 @@ body {
       text-align: center;
     }
 
-    & > input {
+    input {
       width: 300px;
       height: 30px;
       margin: 0 auto 30px;
       display: block;
-      padding: 10px;
+      padding: 30px;
       border-radius: 10px;
     }
 
+
+    .pass {
+      position: relative;
+      width: 300px;
+
+      input {
+        padding-right: 60px;
+      }
+
+      span {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        width: 50px;
+        height: 50px;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    .remember {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+
+      input {
+        width: 50px;
+        margin: 0;
+      }
+    }
 
     button {
       width: 100px;
@@ -102,4 +188,77 @@ body {
     }
   }
 
+}
+
+.clients {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+
+
+  .image {
+    border: 1px solid black;
+    border-right: none;
+    height: 80px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    div {
+      width: 40px;
+      height: 40px;
+      background-color: black;
+    }
+
+  }
+
+  .infos {
+    width: 60%;
+    border: 1px solid black;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    ul {
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      margin: 0;
+    }
+
+    .trait {
+      border-top: 1px solid black;
+      width: 100%;
+      height: 0;
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 100px;
+
+      p {
+        margin: 0;
+
+        a {
+          color: black;
+
+          &:hover {
+            color: blue;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.margin-20 {
+  display: block;
+  margin: 20px;
 }

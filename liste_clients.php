@@ -4,7 +4,7 @@ session_start();
 
 
 if (!isset($_SESSION['is_connected'])) {
-    header('Location:connexion.php');
+    header('Location:index.php');
 }
 
 print_r($_SESSION);
@@ -22,10 +22,9 @@ require_once("class/validator.php");
     <title>Document</title>
 </head>
 <body>
-    
 
 
-<?php 
+<?php
 
 $email = 'email@e.mail';
 $mdp = 'mdp';
@@ -50,7 +49,7 @@ $clients = $requete->fetchAll(PDO::FETCH_ASSOC);
 // echo $_SESSION['id'];
 
 
-foreach($clients as $client):
+foreach ($clients as $client):
     ?>
     <div class="clients">
 
