@@ -62,7 +62,7 @@ foreach($clients as $client):
             <div class="trait"></div>
 
             <div>
-                <p class="modifier"><a href="gestions.php?process=Comptes">Compte(s)</a></p>
+                <p class="comptes"><a href="gestions.php?process=Comptes">Compte(s)</a></p>
                 <p class="modifier"><a href="gestions.php?process=edit_client">Modifier</a></p>
                 <p class="supprimer"><a href="gestions.php?process=delete_client">Supprimer</a></p>
             </div>
@@ -74,6 +74,7 @@ foreach($clients as $client):
 <?php endforeach;
 ?>
 
+<!-- <?php echo "&id_client=".$client["id"] ?> -->
 
 </body>
 </html>
