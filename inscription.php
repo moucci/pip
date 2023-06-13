@@ -11,6 +11,8 @@ if (isset($_SESSION['is_connected'])) {
 
 if (!empty($_POST)) {
     require_once('class/validator.php');
+
+
     // Récupérer les données du formulaire
     $nom = $_POST['nom'] ?? '';
     $prenom = $_POST['prenom'] ?? '';
@@ -19,7 +21,7 @@ if (!empty($_POST)) {
     $rgpd = $_POST['rgpd'] ?? 0;
 
     // Tableau pour stocker les messages d'erreur
-    $erreurs = array();
+    $erreurs = [];
 
     // Vérification du champ nom
     $validationNom = checkName('nom', $nom);
@@ -65,48 +67,60 @@ if (!empty($_POST)) {
 
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <title>Document</title>
-</head>
-<body>
-<main id="inscription">
-    <img src="assets\img\pip.svg" alt="logo">
-    <h1>Ça coule de source</h1>
-    <h2>Inscription</h2>
-    <h3 style="color: red"><?= (isset($msgError)) ? $msgError : '' ?></h3>
-    <form action="inscription.php" method="post" name="inscription">
-        <span><?= (isset($erreurs['nom'])) ? $erreurs['nom'] : '' ?></span>
-        <input type="text" value="<?= isset($_POST['nom']) ? htmlspecialchars($_POST['nom']) : '' ?>" name="nom"
-               value="" id="nom" placeholder="Nom">
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <script src="assets/js/app.js" defer></script>
+        <title>Document</title>
+    </head>
+    <body>
+    <main id="inscription">
+        <img src="assets\img\pip.svg" alt="logo">
+        <h1>Ça coule de source</h1>
+        <h2>Inscription</h2>
+        <h3 style="color: red"><?= (isset($msgError)) ? $msgError : '' ?></h3>
+        <form action="inscription.php" method="post" name="inscription">
+            <span><?= (isset($erreurs['nom'])) ? $erreurs['nom'] : '' ?></span>
+            <input type="text" value="<?= isset($_POST['nom']) ? htmlspecialchars($_POST['nom']) : '' ?>" name="nom"
+                   value="" id="nom" placeholder="Nom">
 
-        <span><?= (isset($erreurs['prenom'])) ? $erreurs['prenom'] : '' ?></span>
-        <input type="text" value="<?= isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : '' ?>"
-               name="prenom" id="prenom" placeholder="Prénom">
+            <span><?= (isset($erreurs['prenom'])) ? $erreurs['prenom'] : '' ?></span>
+            <input type="text" value="<?= isset($_POST['prenom']) ? htmlspecialchars($_POST['prenom']) : '' ?>"
+                   name="prenom" id="prenom" placeholder="Prénom">
 
-        <span><?= (isset($erreurs['email'])) ? $erreurs['email'] : '' ?></span>
-        <input type="email" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>"
-               name="email" id="email" placeholder="Email">
+            <span><?= (isset($erreurs['email'])) ? $erreurs['email'] : '' ?></span>
+            <input type="email" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>"
+                   name="email" id="email" placeholder="Email">
 
-        <span><?= (isset($erreurs['mdp'])) ? $erreurs['mdp'] : '' ?></span>
-        <input type="password" value="" autocomplete="false" name="mdp" id="mdp"
-               placeholder="Mot de passe">
+            <span><?= (isset($erreurs['mdp'])) ? $erreurs['mdp'] : '' ?></span>
+            <div class="pass">
+                <input type="password" value="" autocomplete="false" name="mdp" id="mdp"
+                       placeholder="Mot de passe">
+                <span>
+                    <img src="assets/img/eyes.svg" alt="">
+                </span>
+            </div>
 
-        <div>
-            <input type="checkbox" <?= (isset($rgpd) && $rgpd) ? 'checked' : '' ?> value="1" name="rgpd"
-                   id="rgpd">
-            <label for="rgpd">J'accepte la collecte de mes données</label>
-            <span><?= (isset($erreurs['rgpd'])) ? $erreurs['rgpd'] : '' ?></span>
-        </div>
 
-        <button type="submit">S'inscrire</button>
-    </form>
-</main>
+            <div>
+                <input type="checkbox" <?= (isset($rgpd) && $rgpd) ? 'checked' : '' ?> value="1" name="rgpd"
+                       id="rgpd">
+                <label for="rgpd">J'accepte la collecte de mes données</label>
+                <span><?= (isset($erreurs['rgpd'])) ? $erreurs['rgpd'] : '' ?></span>
+            </div>
 
-</body>
-</html>
+            <span class="margin-20">
+                Vous avez déjà un compte, veuillez  <a href="index.php">vous connecter</a>
+            </span>
+
+            <button type="submit">S'inscrire</button>
+        </form>
+    </main>
+
+    </body>
+    </html>
+<?php

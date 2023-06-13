@@ -34,14 +34,14 @@ if ($validationMotDePasse !== true) {
 
 // Vérifier s'il y a des erreurs
 if (!empty($erreurs)) {
-    header('Location:connexion.php?process=error');
+    header('Location:index.php?process=error');
 }
 
 //try to connect user
 $process = loginConseiller($email, $mdp);
 
 if ($process !== true) {
-    header("Location:connexion.php?process=$process");
+    header("Location:index.php?process=$process");
 } else {
     //if user is connected redirect to gestion.php
     header('Location:gestions.php');

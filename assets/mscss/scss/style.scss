@@ -1,0 +1,159 @@
+body {
+  color: black;
+}
+
+#connexion {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px;
+
+
+  & > img {
+    display: block;
+    width: 90%;
+    max-width: 300px;
+    border-radius: 20px;
+    margin: auto;
+  }
+
+  h1 {
+    font-size: 30px;
+    padding: 20px;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 16px;
+    padding: 20px;
+    margin: 0;
+  }
+
+  form {
+    & > input {
+      width: 300px;
+      height: 30px;
+      margin: 0 auto 30px;
+      display: block;
+      padding: 10px;
+      border-radius: 50px;
+
+
+    }
+
+    .remember {
+      text-align: center;
+    }
+
+    button {
+      width: 100px;
+      height: 30px;
+      margin: 40px auto;
+      display: block;
+    }
+  }
+
+
+}
+
+#inscription {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  input {
+    width: 300px;
+    height: 30px;
+  }
+
+  .pass {
+    position: relative;
+    width: 300px;
+    height: 30px;
+
+    img {
+      position: absolute;
+      right: 0;
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  button {
+    width: 100px;
+    height: 30px;
+  }
+
+}
+
+.clients {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+
+
+  .image {
+    border: 1px solid black;
+    border-right: none;
+    height: 80px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    div {
+      width: 40px;
+      height: 40px;
+      background-color: black;
+    }
+
+  }
+
+  .infos {
+    width: 60%;
+    border: 1px solid black;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    ul {
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      margin: 0;
+    }
+
+    .trait {
+      border-top: 1px solid black;
+      width: 100%;
+      height: 0;
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 100px;
+
+      p {
+        margin: 0;
+
+        a {
+          color: black;
+
+          &:hover {
+            color: blue;
+          }
+        }
+      }
+    }
+  }
+}
