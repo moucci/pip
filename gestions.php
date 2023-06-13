@@ -73,9 +73,9 @@ foreach ($clients as $client):
             <div class="trait"></div>
 
             <div>
-                <p class="comptes"><a href="gestions.php?process=comptes<?php echo "&id_client=".$client["id"] ?>">Compte(s)</a></p>
-                <p class="modifier"><a href="gestions.php?process=edit_client<?php echo "&id_client=".$client["id"] ?>">Modifier</a></p>
-                <p class="supprimer"><a href="gestions.php?process=delete_client<?php echo "&id_client=".$client["id"] ?>">Supprimer</a></p>
+                <p class="comptes"><a href="clients.php?process=comptes<?php echo "&id_client=".$client["id"] ?>">Compte(s)</a></p>
+                <p class="modifier"><a href="clients.php?process=edit_client<?php echo "&id_client=".$client["id"] ?>">Modifier</a></p>
+                <p class="supprimer"><a href="clients.php?process=delete_client<?php echo "&id_client=".$client["id"] ?>">Supprimer</a></p>
             </div>
 
         </div>
