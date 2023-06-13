@@ -82,7 +82,7 @@ if (!empty($_POST)) {
     <h1>Ça coule de source</h1>
     <h2>Inscription</h2>
     <h3 style="color: red"><?= (isset($msgError)) ? $msgError : '' ?></h3>
-    <form action="inscription.php" method="post" name="inscription">
+    <form action="index.php" method="post" name="inscription">
         <span><?= (isset($erreurs['nom'])) ? $erreurs['nom'] : '' ?></span>
         <input type="text" value="<?= isset($_POST['nom']) ? htmlspecialchars($_POST['nom']) : '' ?>" name="nom"
                value="" id="nom" placeholder="Nom">
