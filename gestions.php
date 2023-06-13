@@ -43,6 +43,15 @@ $clients = $requete->fetchAll(PDO::FETCH_ASSOC);
 
 
 
+if(empty($clients)){
+    ?>
+
+    <p class="une_alerte_trop_géniale">Vous ne gérez actuellement aucun pig... clients. Veuillez, s'il vous plait, travaillez un minimum !</p>
+
+    <?php
+    
+}
+
 foreach($clients as $client):
     ?>
     <div class="clients">
