@@ -15,7 +15,7 @@ if (empty($_GET["id_client"]) or empty($_GET['process'])) {
 }
 
 $process_autorise = [
-    "comptes", "edit_client", "delete_client"
+    "comptes", "edit_client", "delete_client","depot", "retrait", "decouvert", "delete_compte", "addcompte", 
 ];
 
 
@@ -83,12 +83,52 @@ if (empty($datas)) {
     <p class="une_alerte_trop_géniale">Actuellement, ce client n'a pas de comptes à sa disposition.</p>
 
     <div class="addcompte">
-        <a href=""comptes.php?process=addcompte">Créer un compte</a>
+        <a href="comptes.php?process=addcompte">Créer un compte</a>
     </div>
 
     <?php
 
+
 }
+
+var_dump ($datas);
+
+if($_GET['process'] === "depot"): ?>
+
+<p>Solde actuel : <?= $datas["solde"]; ?></p>
+<form action="">
+<input type="number" value="" name="montant"
+                   value="" id="montant" placeholder="montant du dépot">
+</form>
+
+<button class="adddepot" type="submit">Confirmer le dépot</button>
+
+
+<?php
+
+endif ;
+
+if($_GET['process'] === "retrait"): ?>
+
+    <p>retraits</p>
+  
+  
+  <?php
+  
+  endif ;
+
+  if($_GET['process'] === "decouvert"): ?>
+
+    <p>découvert</p>
+  
+  
+  <?php
+  
+  endif ;
+
+
+
+
 
 foreach ($datas as $data):
     ?>
@@ -109,10 +149,10 @@ foreach ($datas as $data):
             <div class="trait"></div>
 
             <div>
-                <p class="comptes"><a href="comptes.php?process=depot<?php echo "&id_client=".$client["id"] ?>">dépots</a></p>
-                <p class="modifier"><a href="comptes.php?process=retrait<?php echo "&id_client=".$client["id"] ?>">retraits</a></p>
-                <p class="modifier"><a href="comptes.php?process=decouvert<?php echo "&id_client=".$client["id"] ?>">Gestion du découvert</a></p>
-                <p class="supprimer"><a href="comptes.php?process=delete_compte<?php echo "&id_client=".$client["id"] ?>">Supprimer</a></p>
+                <p class="comptes"><a href="comptes.php?process=depot<?php echo "&id_client=".$data["id_client"] ?>">dépots</a></p>
+                <p class="modifier"><a href="comptes.php?process=retrait<?php echo "&id_client=".$data["id_client"] ?>">retraits</a></p>
+                <p class="modifier"><a href="comptes.php?process=decouvert<?php echo "&id_client=".$data["id_client"] ?>">Gestion du découvert</a></p>
+                <p class="supprimer"><a href="gestion-clients.php?process=delete_compte<?php echo "&id_client=".$data["id_client"] ?>">Supprimer</a></p>
             </div>
 
         </div>
