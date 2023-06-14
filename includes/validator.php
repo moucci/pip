@@ -145,6 +145,7 @@ function signupConseiller(string $email, string $mdp, string $nom, string $preno
         $_SESSION['name'] = $nom;
         $_SESSION['id'] = $db->lastInsertId();
         header('Location:https://pip.test/gestions.php?register=true',);
+        die();
     } catch (PDOException $error) {
         if ($error->getCode() == '23000') {
             return 'Conseiller déja inscrit';
