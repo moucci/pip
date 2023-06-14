@@ -24,7 +24,7 @@
 
 
 
-            <input type="date" name="biday" id="biday" placeholder="Date de naissance(aaaa-mm-jj)">
+            <input type="date" name="biday" id="biday">
 
             <input type="text" name="adresse" id="adresse" placeholder="Adresse">
 
