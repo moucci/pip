@@ -31,7 +31,7 @@ if ($id_client === 0){
 }
 
 
-require_once("class/config.php");
+require_once("includes/config.php");
 
 $db = getDb();
 
