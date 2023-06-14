@@ -122,7 +122,7 @@ function signupConseiller(string $email, string $mdp, string $nom, string $preno
     //try init connexion to data base
     $db = getDb();
 
-    $query = "INSERT INTO conseillers  (nom , prenom ,email , mdp , rgpd  )
+    $query = "INSERT INTO conseillers   (nom , prenom ,email , mdp , rgpd  )
                                     VALUES (:nom , :prenom , :email , :mdp , :rgpd)";
 
     //prepare query
@@ -151,6 +151,7 @@ function signupConseiller(string $email, string $mdp, string $nom, string $preno
         } else return 'Une erreur technique est survenue. Veuillez réessayer ultérieurement. Merci de votre compréhension.';
     }
 }
+
 
 /**
  * methode de delete client from table clients
@@ -192,6 +193,51 @@ function deleteClient()
         header('Location: gestions.php?process=delete-client-error');
     }
     die();
+}
+
+/**
+ * methode delete compte by conseiller
+ * @return void
+ */
+function deleteCompte()
+{
+    if (empty($_GET["id_compte"]) || !is_numeric($_GET["id_compte"])) {
+        header('Location:gestions.php?process=id_compte_not_found&from=gestion-client');
+        die();
+    }
+
+    $idCompte = $_GET["id_compte"];
+    $idConseiller = $_SESSION['id'];
+
+    //get connexion db
+    $db = getDb();
+
+    $q = " DELETE FROM compte WHERE id = :id_compte 
+                     AND id_client = ( SELECT id FROM clients WHERE  id_conseiller = :id_conseiller)";
+    $req = $db->prepare($q);
+    $req->bindParam(':id_compte', $idCompte, PDO::PARAM_INT);
+    $req->bindParam(':id_conseiller', $idConseiller, PDO::PARAM_INT);
+
+    //execute query
+    try {
+        $req->execute();
+    } catch (PDOException $e) {
+        echo "Une erreur est survenue , en temps normal je vous l'affiche pas je la log de un fichier php_error 
+                 mais la pour le dev voici l'erreur en question :" . $e->getMessage();
+        die;
+    }
+
+    //if user deleted
+    if ($req->rowCount() > 0) {
+        $req->closeCursor();
+        header('Location: gestions.php?process=delete-compte-success');
+    } else {
+        $req->closeCursor();
+        header('Location: gestions.php?process=delete-compte-error');
+    }
+    die();
+
+
 }
 
 
