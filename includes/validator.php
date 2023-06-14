@@ -1,8 +1,7 @@
 <?php
 
 //import config file
-require_once("class/config.php");
-
+require_once("includes/config.php");
 
 /**
  * Valider le nom ou le prénom
@@ -152,3 +151,6 @@ function signupConseiller(string $email, string $mdp, string $nom, string $preno
         } else return 'Une erreur technique est survenue. Veuillez réessayer ultérieurement. Merci de votre compréhension.';
     }
 }
+
+
+
