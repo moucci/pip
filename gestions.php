@@ -44,6 +44,18 @@ require_once("includes/config.php");
     <p class="error">Aucun client sélectionné</p>
 <?php endif; ?>
 
+<?php if (!empty($_GET["process"]) && $_GET["process"] === "delete-compte-success"): ?>
+    <p class="success">Le compte client à été supprimé</p>
+<?php endif; ?>
+
+<?php if (!empty($_GET["process"]) && $_GET["process"] === "delete-compte-error"): ?>
+    <p class="error">Le compte client n'a pas être supprimé</p>
+<?php endif; ?>
+
+<?php if (!empty($_GET["process"]) && $_GET["process"] === "id_compte_not_found"): ?>
+    <p class="error">Aucun compte sélectionné</p>
+<?php endif; ?>
+
 <?php if (!empty($_GET["process"]) && $_GET["process"] === "action-not-found"): ?>
     <p class="error">Aucun action sélectionné</p>
 <?php endif;

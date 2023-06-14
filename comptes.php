@@ -15,7 +15,7 @@ if (empty($_GET["id_client"]) or empty($_GET['process'])) {
 }
 
 $process_autorise = [
-    "comptes", "edit_client", "delete_client","depot", "retrait", "decouvert", "delete_compte", "addcompte", 
+    "comptes", "edit_client", "delete_client"
 ];
 
 
@@ -55,6 +55,7 @@ $datas = $req->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
     <link rel="stylesheet" href="assets/mscss/css/style.css">
+    <script src="assets/js/app.js" defer></script>
 
     <title>Pip : Bienvenue</title>
 </head>
@@ -83,11 +84,10 @@ if (empty($datas)) {
     <p class="une_alerte_trop_géniale">Actuellement, ce client n'a pas de comptes à sa disposition.</p>
 
     <div class="addcompte">
-        <a href="comptes.php?process=addcompte">Créer un compte</a>
+        <a href="" comptes.php?process=addcompte">Créer un compte</a>
     </div>
 
     <?php
-
 
 }
 
@@ -148,10 +148,15 @@ foreach ($datas as $data):
             <div class="trait"></div>
 
             <div>
-                <p class="comptes"><a href="comptes.php?process=depot<?php echo "&id_client=".$data["id_client"] ?>">dépots</a></p>
-                <p class="modifier"><a href="comptes.php?process=retrait<?php echo "&id_client=".$data["id_client"] ?>">retraits</a></p>
-                <p class="modifier"><a href="comptes.php?process=decouvert<?php echo "&id_client=".$data["id_client"] ?>">Gestion du découvert</a></p>
-                <p class="supprimer"><a href="gestion-clients.php?process=delete_compte<?php echo "&id_client=".$data["id_client"] ?>">Supprimer</a></p>
+                <p class="comptes"><a
+                            href="comptes.php?process=depot<?php echo "&id_client=" . $data["id"] ?>">dépots</a></p>
+                <p class="modifier"><a href="comptes.php?process=retrait<?php echo "&id_client=" . $data["id"] ?>">retraits</a>
+                </p>
+                <p class="modifier"><a href="comptes.php?process=decouvert<?php echo "&id_client=" . $data["id"] ?>">Gestion
+                        du découvert</a></p>
+                <p class="supprimer"><a class="link_delete"
+                                        href="gestion-client.php?process=delete_compte&<?php echo "&id_compte=" . $data["id"] ?>">Supprimer</a>
+                </p>
             </div>
 
         </div>

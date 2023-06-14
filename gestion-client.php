@@ -7,14 +7,9 @@ if (!isset($_SESSION['is_connected'])) {
     die();
 }
 
-
-//if (empty($_GET["id_client"]) or empty($_GET['process'])) {
-//    header('Location:gestions.php?not_found=id_client');
-//    die();
-//}
-
+//list of valide action
 $process_autorise = [
-    "comptes", "edit_client", "delete_client", "add_client"
+    "comptes", "edit_client", "delete_client", "add_client", "delete_compte"
 ];
 
 //check if we have process
@@ -23,14 +18,20 @@ if (empty($_GET['process']) || !in_array($_GET['process'], $process_autorise)) {
     die();
 }
 
+
+//import  function page
 require_once('includes/validator.php');
 
+
+//choose a good action and execute it
 if (strtolower($_GET['process']) === 'comptes'):
     listCompte();
 elseif (strtolower($_GET['process']) === 'edit_client'):
     editClient();
 elseif (strtolower($_GET['process']) === 'delete_client'):
     deleteClient();
+elseif (strtolower($_GET['process']) === 'delete_compte'):
+    deleteCompte();
 elseif (strtolower($_GET['process']) === 'add_client'):
     addClient();
 endif;
