@@ -1,0 +1,266 @@
+Index: gestions.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\nsession_start();\r\n$_SESSION = (object)$_SESSION;\r\n\r\n//check if user is not connected befor to suscription\r\nif (!isset($_SESSION->is_connected)) {\r\n    header('Location:index.php?is_not_connected');\r\n    die();\r\n}\r\n\r\nrequire_once(\"class/config.php\");\r\n?>\r\n<!DOCTYPE html>\r\n<html lang=\"fr\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n    <!-- <link rel=\"stylesheet\" href=\"assets/css/style.css\"> -->\r\n    <link rel=\"stylesheet\" href=\"assets/mscss/css/style.css\">\r\n\r\n    <title>Pip : Bienvenue</title>\r\n</head>\r\n<body>\r\n\r\n<header class=\"head_gestions\">\r\n    <ul>\r\n        <li>\r\n        <img src=\"assets\\img\\pip.svg\" alt=\"logo\">\r\n        <h1>Ça coule de source</h1>\r\n        </li>\r\n        <li><a href=\"gestions.php\">Acceuil</a></li>\r\n        <li><a href=\"add-client.php\">Ajouter un client</a></li>\r\n        <li><a href=\"login.php?logout\">Déconnexion</a></li>\r\n    </ul>\r\n    \r\n</header>\r\n<?php\r\n\r\n$db = getDb();\r\n\r\n\r\n$sql = \"SELECT * FROM `clients` WHERE `id_conseiller` = :id_conseiller\";\r\n\r\n// $requete = $db->query($sql);\r\n\r\n$requete = $db->prepare($sql);\r\n\r\n$requete->bindValue(\":id_conseiller\", $_SESSION->id, PDO::PARAM_INT);\r\n\r\n$requete->execute();\r\n\r\n$clients = $requete->fetchAll(PDO::FETCH_ASSOC);\r\n\r\nif(empty($clients)){\r\n    ?>\r\n\r\n    <p class=\"une_alerte_trop_géniale\">Vous ne gérez actuellement aucun pig... clients. Veuillez, s'il vous plait, travaillez un minimum !</p>\r\n\r\n    <?php\r\n    \r\n}\r\n\r\nforeach ($clients as $client):\r\n    ?>\r\n    <div class=\"clients\">\r\n\r\n        <div class=\"image\">\r\n            <div></div>\r\n        </div>\r\n\r\n        <div class=\"infos\">\r\n            <ul>\r\n                <li>Prénom : <?= $client[\"prenom\"]; ?></li>\r\n                <li>Nom : <?= $client[\"nom\"]; ?></li>\r\n                <li>Email : <?= $client[\"email\"]; ?></li>\r\n                <li>Ville : <?= $client[\"ville\"]; ?></li>\r\n            </ul>\r\n\r\n            <div class=\"trait\"></div>\r\n\r\n            <div>\r\n                <p class=\"comptes\"><a href=\"clients.php?process=comptes<?php echo \"&id_client=\".$client[\"id\"] ?>\">Compte(s)</a></p>\r\n                <p class=\"modifier\"><a href=\"clients.php?process=edit_client<?php echo \"&id_client=\".$client[\"id\"] ?>\">Modifier</a></p>\r\n                <p class=\"supprimer\"><a href=\"clients.php?process=delete_client<?php echo \"&id_client=\".$client[\"id\"] ?>\">Supprimer</a></p>\r\n            </div>\r\n\r\n        </div>\r\n    </div>\r\n<?php\r\nendforeach;\r\n\r\n?>\r\n\r\n</body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/gestions.php b/gestions.php
+--- a/gestions.php	(revision b8023f1921eaac3d667d134312aaea6ab9a3ed9f)
++++ b/gestions.php	(date 1686736935664)
+@@ -8,6 +8,7 @@
+     die();
+ }
+ 
++
+ require_once("class/config.php");
+ ?>
+ <!DOCTYPE html>
+@@ -17,6 +18,7 @@
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+     <link rel="stylesheet" href="assets/mscss/css/style.css">
++    <script src="assets/js/app.js" defer></script>
+ 
+     <title>Pip : Bienvenue</title>
+ </head>
+@@ -25,20 +27,19 @@
+ <header class="head_gestions">
+     <ul>
+         <li>
+-        <img src="assets\img\pip.svg" alt="logo">
+-        <h1>Ça coule de source</h1>
++            <img src="assets\img\pip.svg" alt="logo">
++            <h1>Ça coule de source</h1>
+         </li>
+         <li><a href="gestions.php">Acceuil</a></li>
+         <li><a href="add-client.php">Ajouter un client</a></li>
+         <li><a href="login.php?logout">Déconnexion</a></li>
+     </ul>
+-    
++
+ </header>
+ <?php
+ 
+ $db = getDb();
+ 
+-
+ $sql = "SELECT * FROM `clients` WHERE `id_conseiller` = :id_conseiller";
+ 
+ // $requete = $db->query($sql);
+@@ -51,17 +52,14 @@
+ 
+ $clients = $requete->fetchAll(PDO::FETCH_ASSOC);
+ 
+-if(empty($clients)){
+-    ?>
++if (empty($clients)):?>
+ 
+-    <p class="une_alerte_trop_géniale">Vous ne gérez actuellement aucun pig... clients. Veuillez, s'il vous plait, travaillez un minimum !</p>
++    <p class="une_alerte_trop_géniale">Vous ne gérez actuellement aucun pig... clients. Veuillez, s'il vous plait,
++        travaillez un minimum !</p>
+ 
+-    <?php
+-    
+-}
++<?php endif;
+ 
+-foreach ($clients as $client):
+-    ?>
++foreach ($clients as $client):?>
+     <div class="clients">
+ 
+         <div class="image">
+@@ -79,17 +77,19 @@
+             <div class="trait"></div>
+ 
+             <div>
+-                <p class="comptes"><a href="clients.php?process=comptes<?php echo "&id_client=".$client["id"] ?>">Compte(s)</a></p>
+-                <p class="modifier"><a href="clients.php?process=edit_client<?php echo "&id_client=".$client["id"] ?>">Modifier</a></p>
+-                <p class="supprimer"><a href="clients.php?process=delete_client<?php echo "&id_client=".$client["id"] ?>">Supprimer</a></p>
++                <p class="comptes"><a href="clients.php?process=comptes<?php echo "&id_client=" . $client["id"] ?>">Compte(s)</a>
++                </p>
++                <p class="modifier"><a
++                            href="clients.php?process=edit_client<?php echo "&id_client=" . $client["id"] ?>">Modifier</a>
++                </p>
++                <p class="supprimer"><a class="link_delete"
++                                        href="clients.php?process=delete_client<?php echo "&id_client=" . $client["id"] ?>">Supprimer</a>
++                </p>
+             </div>
+ 
+         </div>
+     </div>
+-<?php
+-endforeach;
+-
+-?>
++<?php endforeach; ?>
+ 
+ </body>
+ </html>
+Index: assets/js/app.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//add event listener to input password\r\ndocument.querySelector('.pass span')\r\n    .addEventListener('click', function () {\r\n        let typ = this.closest('.pass').querySelector('input').getAttribute('type')\r\n        if (typ === 'text') {\r\n            this.closest('.pass').querySelector('input').setAttribute('type', 'password')\r\n        } else {\r\n            this.closest('.pass').querySelector('input').setAttribute('type', 'text')\r\n        }\r\n    })
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/assets/js/app.js b/assets/js/app.js
+--- a/assets/js/app.js	(revision b8023f1921eaac3d667d134312aaea6ab9a3ed9f)
++++ b/assets/js/app.js	(date 1686736935661)
+@@ -1,10 +1,22 @@
+ //add event listener to input password
+-document.querySelector('.pass span')
+-    .addEventListener('click', function () {
++let $btnTogglePass = document.querySelector('.pass span');
++if ($btnTogglePass) {
++    $btnTogglePass.addEventListener('click', function () {
+         let typ = this.closest('.pass').querySelector('input').getAttribute('type')
+         if (typ === 'text') {
+             this.closest('.pass').querySelector('input').setAttribute('type', 'password')
+         } else {
+             this.closest('.pass').querySelector('input').setAttribute('type', 'text')
+         }
+-    })
+\ No newline at end of file
++    })
++}
++
++
++document.querySelectorAll('.link_delete').forEach($el => {
++    $el.addEventListener('click', function (event) {
++        event.preventDefault();
++        if (confirm('êtes vous sur de vouloir supprimer ')) {
++            window.location.href = $el.getAttribute('href');
++        }
++    })
++})
+Index: connexion.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\nsession_start();\r\n\r\n//convert session to object\r\n$_SESSION = (object)$_SESSION;\r\n\r\n//check if user is not connected\r\nif (isset($_SESSION->is_connected)) {\r\n    header('Location:gestions.php');\r\n}\r\n\r\n//if have process error in url\r\nif (isset($_GET['process']) && $_GET['process'] === 'error') {\r\n    $msgError = 'Email ou mot de passe incorrect. Veuillez réessayer.';\r\n} elseif (isset($_GET['process']) && $_GET['process'] === 'failed') {\r\n    $msgError = \"Une erreur technique s'est produite. Veuillez nous excuser pour le désagrément. Réessayez ultérieurement.\";\r\n} else {\r\n    $msgError = '';\r\n}\r\n\r\n?>\r\n<!DOCTYPE html>\r\n<html lang=\"fr\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <link href=\"assets/css/style.css\" rel=\"stylesheet\">\r\n    <title>connexion</title>\r\n</head>\r\n<body>\r\n<main id=\"connexion\">\r\n    <img src=\"assets\\img\\pip.svg\" alt=\"logo\">\r\n    <h1>Ça coule de source</h1>\r\n    <h2>CONNEXION</h2>\r\n    <h3><?= $msgError ?></h3>\r\n    <form action=\"login.php\" method=\"POST\" name=\"connexion\">\r\n        <input type=\"email\" value=\"hamid@gmail.com\" name=\"email\" id=\"email\" placeholder=\"Email\">\r\n        <input type=\"password\" value=\"Newbie@89123456789789\" name=\"mdp\" id=\"mdp\" placeholder=\"Mot de passe\">\r\n        <div class=\"remember\">\r\n            <input type=\"checkbox\" name=\"remeberme\" id=\"remeberme\">\r\n            <label for=\"rgpd\">Rester connecté</label>\r\n        </div>\r\n        <button type=\"submit\" value=\"OK\">Se connecter</button>\r\n    </form>\r\n</main>\r\n\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/connexion.php b/connexion.php
+--- a/connexion.php	(revision b8023f1921eaac3d667d134312aaea6ab9a3ed9f)
++++ b/connexion.php	(date 1686736935663)
+@@ -7,7 +7,8 @@
+ //check if user is not connected
+ if (isset($_SESSION->is_connected)) {
+     header('Location:gestions.php');
+-}
++};
++
+ 
+ //if have process error in url
+ if (isset($_GET['process']) && $_GET['process'] === 'error') {
+Index: assets/mscss/scss/style.css.map
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\"version\":3,\"sourceRoot\":\"\",\"sources\":[\"style.scss\"],\"names\":[],\"mappings\":\";AAAA;EACE;;;AAGF;EAEE;EACA;EACA;EACA;EACA;EACA;;AAGA;EACE;EACA;EACA;EACA;EACA;;AAGF;EACE;EACA;EACA;;AAGF;EACE;EACA;EACA;;AAIA;EACE;EACA;EACA;EACA;EACA;EACA;;AAKF;EACE;;AAGF;EACE;EACA;EACA;EACA;;;AAON;EACE;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAGF;EACE;EACA;EACA;;AAEA;EACE;EACA;EACA;EACA;;AAIJ;EACE;EACA;;;AAKJ;EACE;EACA;EACA;EACA;;AAGA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;EACA;;AAKJ;EACE;EACA;EACA;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;EACA;EACA;EACA;;AAGF;EACE;EACA;EACA;;AAGF;EACE;EACA;EACA;;AAEA;EACE;;AAEA;EACE;;AAEA;EACE;;;AASZ;EACE;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;EACA;EACA;EACA;;;AAIJ;EACE;EACA\",\"file\":\"style.css\"}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/assets/mscss/scss/style.css.map b/assets/mscss/scss/style.css.map
+--- a/assets/mscss/scss/style.css.map	(revision b8023f1921eaac3d667d134312aaea6ab9a3ed9f)
++++ b/assets/mscss/scss/style.css.map	(date 1686736935662)
+@@ -1,1 +1,1 @@
+-{"version":3,"sourceRoot":"","sources":["style.scss"],"names":[],"mappings":";AAAA;EACE;;;AAGF;EAEE;EACA;EACA;EACA;EACA;EACA;;AAGA;EACE;EACA;EACA;EACA;EACA;;AAGF;EACE;EACA;EACA;;AAGF;EACE;EACA;EACA;;AAIA;EACE;EACA;EACA;EACA;EACA;EACA;;AAKF;EACE;;AAGF;EACE;EACA;EACA;EACA;;;AAON;EACE;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAGF;EACE;EACA;EACA;;AAEA;EACE;EACA;EACA;EACA;;AAIJ;EACE;EACA;;;AAKJ;EACE;EACA;EACA;EACA;;AAGA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;EACA;;AAKJ;EACE;EACA;EACA;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;EACA;EACA;EACA;;AAGF;EACE;EACA;EACA;;AAGF;EACE;EACA;EACA;;AAEA;EACE;;AAEA;EACE;;AAEA;EACE;;;AASZ;EACE;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;EACA;EACA;EACA;;;AAIJ;EACE;EACA","file":"style.css"}
+\ No newline at end of file
++{"version":3,"sourceRoot":"","sources":["style.scss"],"names":[],"mappings":";AAAA;EACE;;;AAGF;EAEE;EACA;EACA;EACA;EACA;EACA;;AAGA;EACE;EACA;EACA;EACA;EACA;;AAGF;EACE;EACA;EACA;;AAGF;EACE;EACA;EACA;;AAIA;EACE;EACA;EACA;EACA;EACA;EACA;;AAKF;EACE;;AAGF;EACE;EACA;EACA;EACA;;;AAON;EACE;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;;AAGF;EACE;EACA;EACA;;AAEA;EACE;EACA;EACA;EACA;;AAIJ;EACE;EACA;;;AAKJ;EACE;EACA;EACA;EACA;;AAGA;EACE;EACA;EACA;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;EACA;;AAKJ;EACE;EACA;EACA;EACA;EACA;EACA;EACA;;AAEA;EACE;EACA;EACA;EACA;EACA;;AAGF;EACE;EACA;EACA;;AAGF;EACE;EACA;EACA;;AAEA;EACE;;AAEA;EACE;;AAEA;EACE;;;AASZ;EACE;EACA;EACA;EACA;EACA;;AACA;EACE;EACA;EACA;EACA;EACA;;AAEA;EACE;;AAEE;EACE;;AAEA;EACE;;AAIN;EACE;EACA;EACA;EACA;EACA;;;AAMR;EACE;EACA","file":"style.css"}
+\ No newline at end of file
+Index: assets/mscss/scss/style.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>@charset \"UTF-8\";\r\nbody {\r\n  color: black;\r\n}\r\n\r\n#connexion {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  gap: 20px;\r\n  margin: 20px;\r\n}\r\n#connexion > img {\r\n  display: block;\r\n  width: 90%;\r\n  max-width: 300px;\r\n  border-radius: 20px;\r\n  margin: auto;\r\n}\r\n#connexion h1 {\r\n  font-size: 30px;\r\n  padding: 20px;\r\n  margin: 0;\r\n}\r\n#connexion h2 {\r\n  font-size: 16px;\r\n  padding: 20px;\r\n  margin: 0;\r\n}\r\n#connexion form > input {\r\n  width: 300px;\r\n  height: 30px;\r\n  margin: 0 auto 30px;\r\n  display: block;\r\n  padding: 10px;\r\n  border-radius: 50px;\r\n}\r\n#connexion form .remember {\r\n  text-align: center;\r\n}\r\n#connexion form button {\r\n  width: 100px;\r\n  height: 30px;\r\n  margin: 40px auto;\r\n  display: block;\r\n}\r\n\r\n#inscription {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  gap: 20px;\r\n}\r\n#inscription input {\r\n  width: 300px;\r\n  height: 30px;\r\n}\r\n#inscription .pass {\r\n  position: relative;\r\n  width: 300px;\r\n  height: 30px;\r\n}\r\n#inscription .pass img {\r\n  position: absolute;\r\n  right: 0;\r\n  width: 50px;\r\n  height: 50px;\r\n}\r\n#inscription button {\r\n  width: 100px;\r\n  height: 30px;\r\n}\r\n\r\n.clients {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  margin-top: 50px;\r\n}\r\n.clients .image {\r\n  border: 1px solid black;\r\n  border-right: none;\r\n  height: 80px;\r\n  width: 80px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n}\r\n.clients .image div {\r\n  width: 40px;\r\n  height: 40px;\r\n  background-color: black;\r\n}\r\n.clients .infos {\r\n  width: 60%;\r\n  border: 1px solid black;\r\n  height: 80px;\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: space-evenly;\r\n}\r\n.clients .infos ul {\r\n  list-style-type: none;\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 40px;\r\n  margin: 0;\r\n}\r\n.clients .infos .trait {\r\n  border-top: 1px solid black;\r\n  width: 100%;\r\n  height: 0;\r\n}\r\n.clients .infos div {\r\n  display: flex;\r\n  align-items: center;\r\n  gap: 100px;\r\n}\r\n.clients .infos div p {\r\n  margin: 0;\r\n}\r\n.clients .infos div p a {\r\n  color: black;\r\n}\r\n.clients .infos div p a:hover {\r\n  color: blue;\r\n}\r\n\r\n.head_gestions {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  justify-content: center;\r\n  gap: 20px;\r\n}\r\n.head_gestions > img {\r\n  display: block;\r\n  width: 90%;\r\n  max-width: 300px;\r\n  border-radius: 20px;\r\n  margin: auto;\r\n}\r\n\r\n.une_alerte_trop_géniale {\r\n  text-align: center;\r\n  font-size: 20px;\r\n}\r\n\r\n/*# sourceMappingURL=style.css.map */\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/assets/mscss/scss/style.css b/assets/mscss/scss/style.css
+--- a/assets/mscss/scss/style.css	(revision b8023f1921eaac3d667d134312aaea6ab9a3ed9f)
++++ b/assets/mscss/scss/style.css	(date 1686736935662)
+@@ -136,7 +136,23 @@
+   justify-content: center;
+   gap: 20px;
+ }
+-.head_gestions > img {
++.head_gestions > ul {
++  list-style-type: none;
++  display: flex;
++  align-items: center;
++  gap: 100px;
++  padding: 0;
++}
++.head_gestions > ul > li {
++  font-size: 20px;
++}
++.head_gestions > ul > li > a {
++  color: black;
++}
++.head_gestions > ul > li > a:hover {
++  color: blue;
++}
++.head_gestions > ul > li > img {
+   display: block;
+   width: 90%;
+   max-width: 300px;
+Index: class/validator.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n\r\n//import config file\r\nrequire_once(\"class/config.php\");\r\n\r\n\r\n/**\r\n * Valider le nom ou le prénom\r\n * @param string $name Le nom du champ\r\n * @param string $value La valeur à valider\r\n * @return bool|string True si la valeur est valide, sinon le message d'erreur\r\n */\r\nfunction checkName(string $name, string $value): bool|string\r\n{\r\n    $value = trim($value);\r\n\r\n    // Vérifier la variable vide\r\n    if (empty($value)) {\r\n        return \"Le champ $name est requis.\";\r\n    }\r\n    // Vérifier la longueur\r\n    if (strlen($value) < 1 || strlen($value) > 100) {\r\n        return \"La longueur du $name est incorrecte. Le $name doit comporter entre 2 et 50 caractères.\";\r\n    }\r\n    // Vérifier les caractères spéciaux\r\n    if (!preg_match('/^[a-zA-ZÀ-ÿ\\s\\'\\-]+$/', $value)) {\r\n        return \"Le $name contient des caractères spéciaux non autorisés.\";\r\n    }\r\n\r\n    return true;\r\n}\r\n\r\n/**\r\n * Valider l'adresse email\r\n * @param string $value La valeur à valider\r\n * @return bool|string True si la valeur est valide, sinon le message d'erreur\r\n */\r\nfunction checkEmail(string $value): bool|string\r\n{\r\n    // Vérifier la variable vide\r\n    if (empty($value)) {\r\n        return \"Le champ adresse email est requis.\";\r\n    }\r\n    // Vérifier la validité de l'adresse email\r\n    if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {\r\n        return \"L'adresse email est invalide.\";\r\n    }\r\n    return true;\r\n}\r\n\r\n/**\r\n * Valider le mot de passe\r\n * @param string $value La valeur à valider\r\n * @return bool|string True si la valeur est valide, sinon le message d'erreur\r\n */\r\nfunction checkPass(string $value): bool|string\r\n{\r\n    // Vérifier la variable vide\r\n    if (empty($value)) {\r\n        return \"Le champ mot de passe est requis.\";\r\n    }\r\n    // Vérifier la longueur\r\n    if (strlen($value) < 16) {\r\n        return \"La longueur du mot de passe est incorrecte. Le mot de passe doit comporter au moins 16 caractères.\";\r\n    }\r\n    // Vérifier les caractères requis\r\n    if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$&_\\-^%])[A-Za-z\\d@$&_\\-^%]{16,}$/', $value)) {\r\n        return \"Le mot de passe est invalide. Il doit contenir au moins 16 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial.\";\r\n    }\r\n    return true;\r\n}\r\n\r\n/**\r\n * Methode to register new conseiller\r\n * set session if process success\r\n * @param string $email\r\n * @param string $mdp\r\n * @return string|true error message | bool\r\n */\r\nfunction loginConseiller(string $email, string $mdp)\r\n{\r\n\r\n    $db = getDb();\r\n\r\n    $req = $db->prepare('SELECT id ,  nom as name , email , mdp as mdp_hashed FROM conseillers  where email = :email');\r\n    $req->bindParam(':email', $email, PDO::PARAM_STR);\r\n\r\n    ////try ton insert new conseiller\r\n    if (!$req->execute()) return 'failed';\r\n\r\n\r\n    //if user not existe\r\n    if ($req->rowCount() === 0) return 'error';\r\n    $data = $req->fetch(PDO::FETCH_OBJ);\r\n\r\n    //check pass word hash\r\n    if (!password_verify($mdp, $data->mdp_hashed)) {\r\n        return 'error';\r\n    }\r\n\r\n    //set session\r\n    $_SESSION['is_connected'] = true;\r\n    $_SESSION['name'] = $data->name;\r\n    $_SESSION['id'] = $data->id;\r\n\r\n    return true;\r\n\r\n\r\n}\r\n\r\n\r\n/**\r\n * methode to register conseillers\r\n * @param string $email\r\n * @param string $mdp\r\n * @param string $nom\r\n * @param string $prenom\r\n * @param int $rgpd\r\n * @return string|void\r\n */\r\nfunction signupConseiller(string $email, string $mdp, string $nom, string $prenom, int $rgpd)\r\n{\r\n    //try init connexion to data base\r\n    $db = getDb();\r\n\r\n    $query = \"INSERT INTO conseillers  (nom , prenom ,email , mdp , rgpd  )\r\n                                    VALUES (:nom , :prenom , :email , :mdp , :rgpd)\";\r\n\r\n    //prepare query\r\n    $req = $db->prepare($query);\r\n\r\n    $req->bindParam(':nom', $nom, PDO::PARAM_STR);\r\n    $req->bindParam(':prenom', $prenom, PDO::PARAM_STR);\r\n    $req->bindParam(':email', $email, PDO::PARAM_STR);\r\n\r\n    //hash mdp\r\n    $mdp = password_hash($mdp, PASSWORD_ARGON2ID, ['const' => 10]);\r\n    $req->bindParam(':mdp', $mdp, PDO::PARAM_STR);\r\n    $req->bindParam(':rgpd', $rgpd, PDO::PARAM_INT);\r\n\r\n    //try ton insert new conseiller\r\n    try {\r\n        $req->execute();\r\n        //set session\r\n        $_SESSION['is_connected'] = true;\r\n        $_SESSION['name'] = $nom;\r\n        $_SESSION['id'] = $db->lastInsertId();\r\n        header('Location:https://pip.test/gestions.php?register=true',);\r\n    } catch (PDOException $error) {\r\n        if ($error->getCode() == '23000') {\r\n            return 'Conseiller déja inscrit';\r\n        } else return 'Une erreur technique est survenue. Veuillez réessayer ultérieurement. Merci de votre compréhension.';\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/class/validator.php b/class/validator.php
+--- a/class/validator.php	(revision b8023f1921eaac3d667d134312aaea6ab9a3ed9f)
++++ b/class/validator.php	(date 1686736935663)
+@@ -3,7 +3,6 @@
+ //import config file
+ require_once("class/config.php");
+ 
+-
+ /**
+  * Valider le nom ou le prénom
+  * @param string $name Le nom du champ
+@@ -151,4 +150,7 @@
+             return 'Conseiller déja inscrit';
+         } else return 'Une erreur technique est survenue. Veuillez réessayer ultérieurement. Merci de votre compréhension.';
+     }
+-}
+\ No newline at end of file
++}
++
++
++
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"331b45af-857b-49cd-be89-2b97c02b47db\" name=\"Changes\" comment=\"add register page\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/ancien_index.php\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/gestions.php\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/gestions.php\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ComposerSettings\">\r\n    <execution />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"HTML File\" />\r\n        <option value=\"SCSS File\" />\r\n        <option value=\"JavaScript File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"FormatOnSaveOptions\">\r\n    <option name=\"myRunOnSave\" value=\"true\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">\r\n    <option name=\"selectedUrlAndAccountId\">\r\n      <UrlAndAccount>\r\n        <option name=\"accountId\" value=\"8782e07e-4d61-49e8-81ba-e00113ae7336\" />\r\n        <option name=\"url\" value=\"https://github.com/moucci/pip.git\" />\r\n      </UrlAndAccount>\r\n    </option>\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"NamedScopeManager\">\r\n    <scope name=\"pip\" pattern=\"\" />\r\n  </component>\r\n  <component name=\"OptimizeOnSaveOptions\">\r\n    <option name=\"myRunOnSave\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PhpWorkspaceProjectConfiguration\" interpreter_name=\"PHP\">\r\n    <include_path>\r\n      <path value=\"$PROJECT_DIR$/../../bin/php/php-8.1.10-Win32-vs16-x64\" />\r\n    </include_path>\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2QpqKAZb4NpuYZvGh60FOsQQOK3\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"compactDirectories\" value=\"true\" />\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"ASKED_ADD_EXTERNAL_FILES\": \"true\",\r\n    \"ASKED_SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"DefaultHtmlFileTemplate\": \"HTML File\",\r\n    \"NewWatcherDialog.advanced.open\": \"true\",\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"WebServerToolWindowFactoryState\": \"false\",\r\n    \"last_opened_file_path\": \"C:/laragon/www/pip\",\r\n    \"list.type.of.created.stylesheet\": \"SCSS\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"settings.editor.selected.configurable\": \"watcher.settings\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  },\r\n  \"keyToStringList\": {\r\n    \"DatabaseDriversLRU\": [\r\n      \"mysql\"\r\n    ],\r\n    \"com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File\": [\r\n      \"GitIgnore\"\r\n    ]\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\laragon\\www\\pip\\assets\\js\" />\r\n      <recent name=\"C:\\laragon\\www\\pip\\assets\\img\" />\r\n      <recent name=\"C:\\laragon\\www\\pip\\assets\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"331b45af-857b-49cd-be89-2b97c02b47db\" name=\"Changes\" comment=\"\" />\r\n      <created>1686060803268</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1686060803268</updated>\r\n      <workItem from=\"1686060804570\" duration=\"12738000\" />\r\n      <workItem from=\"1686292008611\" duration=\"1343000\" />\r\n      <workItem from=\"1686311309588\" duration=\"8898000\" />\r\n      <workItem from=\"1686567544472\" duration=\"459000\" />\r\n      <workItem from=\"1686568050987\" duration=\"435000\" />\r\n      <workItem from=\"1686568492767\" duration=\"13463000\" />\r\n      <workItem from=\"1686655984387\" duration=\"7006000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"add register page\">\r\n      <created>1686292064398</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1686292064398</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n    <MESSAGE value=\"add register page\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"add register page\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision b8023f1921eaac3d667d134312aaea6ab9a3ed9f)
++++ b/.idea/workspace.xml	(date 1686736935660)
+@@ -7,6 +7,11 @@
+     <list default="true" id="331b45af-857b-49cd-be89-2b97c02b47db" name="Changes" comment="add register page">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/ancien_index.php" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/app.js" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/mscss/scss/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mscss/scss/style.css" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/assets/mscss/scss/style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mscss/scss/style.css.map" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/class/validator.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/validator.php" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/connexion.php" beforeDir="false" afterPath="$PROJECT_DIR$/connexion.php" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/gestions.php" beforeDir="false" afterPath="$PROJECT_DIR$/gestions.php" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -120,7 +125,7 @@
+       <workItem from="1686567544472" duration="459000" />
+       <workItem from="1686568050987" duration="435000" />
+       <workItem from="1686568492767" duration="13463000" />
+-      <workItem from="1686655984387" duration="7006000" />
++      <workItem from="1686655984387" duration="10686000" />
+     </task>
+     <task id="LOCAL-00001" summary="add register page">
+       <created>1686292064398</created>
