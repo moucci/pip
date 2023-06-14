@@ -19,7 +19,7 @@ $process_autorise = [
 
 //check if we have process
 if (empty($_GET['process']) || !in_array($_GET['process'], $process_autorise)) {
-    header('Location:gestions.php?process_not_found=gestion-client');
+    header('Location:gestions.php?process=action-not-found&from=gestion-client');
     die();
 }
 

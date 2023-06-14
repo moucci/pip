@@ -35,7 +35,19 @@ require_once("includes/config.php");
     </ul>
 
 </header>
-<?php
+
+<?php if (!empty($_GET["process"]) && $_GET["process"] === "delete-client-success"): ?>
+    <p class="success">Votre client a bien été supprimé.</p>
+<?php endif; ?>
+
+<?php if (!empty($_GET["process"]) && $_GET["process"] === "id-client-not-found"): ?>
+    <p class="error">Aucun client sélectionné</p>
+<?php endif; ?>
+
+<?php if (!empty($_GET["process"]) && $_GET["process"] === "action-not-found"): ?>
+    <p class="error">Aucun action sélectionné</p>
+<?php endif;
+
 
 $db = getDb();
 
@@ -83,7 +95,7 @@ foreach ($clients as $client):?>
                             href="clients.php?process=edit_client<?php echo "&id_client=" . $client["id"] ?>">Modifier</a>
                 </p>
                 <p class="supprimer"><a class="link_delete"
-                                        href="clients.php?process=delete_client<?php echo "&id_client=" . $client["id"] ?>">Supprimer</a>
+                                        href="gestion-client.php?process=delete_client<?php echo "&id_client=" . $client["id"] ?>">Supprimer</a>
                 </p>
             </div>
 

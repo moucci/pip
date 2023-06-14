@@ -152,5 +152,47 @@ function signupConseiller(string $email, string $mdp, string $nom, string $preno
     }
 }
 
+/**
+ * methode de delete client from table clients
+ * @return void
+ */
+function deleteClient()
+{
+    if (empty($_GET["id_client"]) || !is_numeric($_GET["id_client"])) {
+        header('Location:gestions.php?process=id_client_not_found&from=gestion-client');
+        die();
+    }
+
+    $idClient = $_GET["id_client"];
+    $idConseiller = $_SESSION['id'];
+
+    //get connexion db
+    $db = getDb();
+
+    $q = "DELETE  FROM clients WHERE id = :id_client  and id_conseiller = :id_conseiller ";
+    $req = $db->prepare($q);
+    $req->bindParam(':id_client', $idClient, PDO::PARAM_INT);
+    $req->bindParam(':id_conseiller', $idConseiller, PDO::PARAM_INT);
+
+    //execute query
+    try {
+        $req->execute();
+    } catch (PDOException $e) {
+        echo "Une erreur est survenue , en temps normal je vous l'affiche pas je la log de un fichier php_error 
+                 mais la pour le dev voici l'erreur en question :" . $e->getMessage();
+        die;
+    }
+
+    //if user deleted
+    if ($req->rowCount() > 0) {
+        $req->closeCursor();
+        header('Location: gestions.php?process=delete-client-success');
+    } else {
+        $req->closeCursor();
+        header('Location: gestions.php?process=delete-client-error');
+    }
+    die();
+}
+
 
 
