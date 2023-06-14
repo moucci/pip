@@ -136,7 +136,23 @@ body {
   justify-content: center;
   gap: 20px;
 }
-.head_gestions > img {
+.head_gestions > ul {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  gap: 100px;
+  padding: 0;
+}
+.head_gestions > ul > li {
+  font-size: 20px;
+}
+.head_gestions > ul > li > a {
+  color: black;
+}
+.head_gestions > ul > li > a:hover {
+  color: blue;
+}
+.head_gestions > ul > li > img {
   display: block;
   width: 90%;
   max-width: 300px;

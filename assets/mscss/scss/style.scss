@@ -165,13 +165,32 @@ body {
   align-items: center;
   justify-content: center;
   gap: 20px;
+  &>ul{
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 100px;
+    padding: 0;
 
-  & > img {
-    display: block;
-    width: 90%;
-    max-width: 300px;
-    border-radius: 20px;
-    margin: auto;
+    &>li{
+      font-size: 20px;
+ 
+        &>a{
+          color: black;
+
+          &:hover {
+            color: blue;
+          }
+        }      
+
+      & > img {
+        display: block;
+        width: 90%;
+        max-width: 300px;
+        border-radius: 20px;
+        margin: auto;
+      }
+    }
   }
 }
 

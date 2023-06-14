@@ -22,26 +22,32 @@ require_once("class/config.php");
 </head>
 <body>
 
-<div class="head_gestions">
-    <img src="assets\img\pip.svg" alt="logo">
-    <h1>Ça coule de source</h1>
-</div>
-
+<header class="head_gestions">
+    <ul>
+        <li>
+        <img src="assets\img\pip.svg" alt="logo">
+        <h1>Ça coule de source</h1>
+        </li>
+        <li><a href="gestions.php">Acceuil</a></li>
+        <li><a href="add-client.php">Ajouter un client</a></li>
+        <li><a href="login.php?logout">Déconnexion</a></li>
+    </ul>
+    
+</header>
 <?php
 
 $db = getDb();
 
-$id = $_SESSION->id;
 
-$sql = "SELECT * FROM `clients` WHERE `id_conseiller` = $id";
+$sql = "SELECT * FROM `clients` WHERE `id_conseiller` = :id_conseiller";
 
-$requete = $db->query($sql);
+// $requete = $db->query($sql);
 
-// $requete = $db->prepare($sql);
+$requete = $db->prepare($sql);
 
-// $requete->bindValue(":id", $id, PDO::PARAM_INT);
+$requete->bindValue(":id_conseiller", $_SESSION->id, PDO::PARAM_INT);
 
-// $requete->execute();
+$requete->execute();
 
 $clients = $requete->fetchAll(PDO::FETCH_ASSOC);
 
