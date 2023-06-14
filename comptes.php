@@ -9,42 +9,41 @@ if (!isset($_SESSION->is_connected)) {
 }
 
 
-if (empty($_GET["id_client"])  or empty($_GET['process'])){
+if (empty($_GET["id_client"]) or empty($_GET['process'])) {
     header('Location:gestions.php');
     die();
 }
 
 $process_autorise = [
-    "comptes","edit_client","delete_client"
+    "comptes", "edit_client", "delete_client"
 ];
 
 
-if (!in_array($_GET['process'] , $process_autorise)){
+if (!in_array($_GET['process'], $process_autorise)) {
     header('Location:gestions.php?process_not_found');
     die();
 }
 
-$id_client = (int) $_GET['id_client'] ; 
-if ($id_client === 0){
+$id_client = (int)$_GET['id_client'];
+if ($id_client === 0) {
     header('Location:gestions.php?bad_id');
     die();
 }
 
 
-require_once("class/config.php");
+require_once("includes/config.php");
 
 $db = getDb();
 
 $query = "SELECT * FROM `compte` WHERE `id_client` = :id_client";
 
-$req = $db->prepare($query) ;
+$req = $db->prepare($query);
 
-$req->bindParam(":id_client" , $id_client , PDO::PARAM_INT) ;
+$req->bindParam(":id_client", $id_client, PDO::PARAM_INT);
 
 $req->execute();
 
-$datas = $req->fetchAll(PDO::FETCH_ASSOC) ;
-
+$datas = $req->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
@@ -64,27 +63,27 @@ $datas = $req->fetchAll(PDO::FETCH_ASSOC) ;
 <header class="head_gestions">
     <ul>
         <li>
-        <img src="assets\img\pip.svg" alt="logo">
-        <h1>Ça coule de source</h1>
+            <img src="assets\img\pip.svg" alt="logo">
+            <h1>Ça coule de source</h1>
         </li>
         <li><a href="gestions.php">Acceuil</a></li>
         <li><a href="add-client.php">Ajouter un client</a></li>
         <li><a href="login.php?logout">Déconnexion</a></li>
     </ul>
-    
+
 </header>
 
 <?php
-if(empty($datas)){
+if (empty($datas)) {
     ?>
 
     <p class="une_alerte_trop_géniale">Actuellement, ce client n'a pas de comptes à sa disposition.</p>
 
     <?php
-    
+
 }
-    
-    foreach ($datas as $data):
+
+foreach ($datas as $data):
     ?>
     <div class="clients">
 
@@ -103,10 +102,15 @@ if(empty($datas)){
             <div class="trait"></div>
 
             <div>
-                <p class="comptes"><a href="clients.php?process=depot<?php echo "&id_client=".$client["id"] ?>">dépots</a></p>
-                <p class="modifier"><a href="clients.php?process=retrait<?php echo "&id_client=".$client["id"] ?>">retraits</a></p>
-                <p class="modifier"><a href="clients.php?process=decouvert<?php echo "&id_client=".$client["id"] ?>">Gestion du découvert</a></p>
-                <p class="supprimer"><a href="clients.php?process=delete_compte<?php echo "&id_client=".$client["id"] ?>">Supprimer</a></p>
+                <p class="comptes"><a
+                            href="clients.php?process=depot<?php echo "&id_client=" . $client["id"] ?>">dépots</a></p>
+                <p class="modifier"><a href="clients.php?process=retrait<?php echo "&id_client=" . $client["id"] ?>">retraits</a>
+                </p>
+                <p class="modifier"><a href="clients.php?process=decouvert<?php echo "&id_client=" . $client["id"] ?>">Gestion
+                        du découvert</a></p>
+                <p class="supprimer"><a
+                            href="clients.php?process=delete_compte<?php echo "&id_client=" . $client["id"] ?>">Supprimer</a>
+                </p>
             </div>
 
         </div>

@@ -15,7 +15,7 @@ if (isset($_SESSION['is_connected'])) {
     die();
 }
 
-require_once('class/validator.php');
+require_once('includes/validator.php');
 
 // Récupérer les données du formulaire
 $email = $_POST['email'] ?? '';

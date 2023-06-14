@@ -8,7 +8,8 @@ if (!isset($_SESSION->is_connected)) {
     die();
 }
 
-require_once("class/config.php");
+
+require_once("includes/config.php");
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -17,6 +18,7 @@ require_once("class/config.php");
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
     <link rel="stylesheet" href="assets/mscss/css/style.css">
+    <script src="assets/js/app.js" defer></script>
 
     <title>Pip : Bienvenue</title>
 </head>
@@ -25,19 +27,18 @@ require_once("class/config.php");
 <header class="head_gestions">
     <ul>
         <li>
-        <img src="assets\img\pip.svg" alt="logo">
-        <h1>Ça coule de source</h1>
+            <img src="assets\img\pip.svg" alt="logo">
+            <h1>Ça coule de source</h1>
         </li>
         <li><a href="gestions.php">Acceuil</a></li>
         <li><a href="add-client.php">Ajouter un client</a></li>
         <li><a href="login.php?logout">Déconnexion</a></li>
     </ul>
-    
+
 </header>
 <?php
 
 $db = getDb();
-
 
 $sql = "SELECT * FROM `clients` WHERE `id_conseiller` = :id_conseiller";
 
@@ -51,17 +52,14 @@ $requete->execute();
 
 $clients = $requete->fetchAll(PDO::FETCH_ASSOC);
 
-if(empty($clients)){
-    ?>
+if (empty($clients)):?>
 
-    <p class="une_alerte_trop_géniale">Vous ne gérez actuellement aucun pig... clients. Veuillez, s'il vous plait, travaillez un minimum !</p>
+    <p class="une_alerte_trop_géniale">Vous ne gérez actuellement aucun pig... clients. Veuillez, s'il vous plait,
+        travaillez un minimum !</p>
 
-    <?php
-    
-}
+<?php endif;
 
-foreach ($clients as $client):
-    ?>
+foreach ($clients as $client):?>
     <div class="clients">
 
         <div class="image">
@@ -79,17 +77,19 @@ foreach ($clients as $client):
             <div class="trait"></div>
 
             <div>
-                <p class="comptes"><a href="comptes.php?process=comptes<?php echo "&id_client=".$client["id"] ?>">Compte(s)</a></p>
-                <p class="modifier"><a href="clients.php?process=edit_client<?php echo "&id_client=".$client["id"] ?>">Modifier</a></p>
-                <p class="supprimer"><a href="clients.php?process=delete_client<?php echo "&id_client=".$client["id"] ?>">Supprimer</a></p>
+                <p class="comptes"><a href="clients.php?process=comptes<?php echo "&id_client=" . $client["id"] ?>">Compte(s)</a>
+                </p>
+                <p class="modifier"><a
+                            href="clients.php?process=edit_client<?php echo "&id_client=" . $client["id"] ?>">Modifier</a>
+                </p>
+                <p class="supprimer"><a class="link_delete"
+                                        href="clients.php?process=delete_client<?php echo "&id_client=" . $client["id"] ?>">Supprimer</a>
+                </p>
             </div>
 
         </div>
     </div>
-<?php
-endforeach;
-
-?>
+<?php endforeach; ?>
 
 </body>
 </html>
