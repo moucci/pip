@@ -95,13 +95,12 @@ var_dump ($datas);
 
 if($_GET['process'] === "depot"): ?>
 
-<p>Solde actuel : <?= $datas["solde"]; ?></p>
+<p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
 <form action="">
-<input type="number" value="" name="montant"
-                   value="" id="montant" placeholder="montant du dépot">
+<input type="number" value="" name="montant" id="montant" placeholder="montant du dépot">
 </form>
 
-<button class="adddepot" type="submit">Confirmer le dépot</button>
+<button class="adddepot" type="submit" onclick="return confirm('Confirmez vous le dépot ?');">Confirmer le dépot</button>
 
 
 <?php
