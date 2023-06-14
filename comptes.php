@@ -74,11 +74,18 @@ $datas = $req->fetchAll(PDO::FETCH_ASSOC) ;
     
 </header>
 
+<h2>Gestion des comptes clients</h2>
+
+
 <?php
 if(empty($datas)){
     ?>
 
     <p class="une_alerte_trop_géniale">Actuellement, ce client n'a pas de comptes à sa disposition.</p>
+
+    <div class="addcompte">
+        <a href=""comptes.php?process=addcompte">Créer un compte</a>
+    </div>
 
     <?php
     
@@ -103,10 +110,10 @@ if(empty($datas)){
             <div class="trait"></div>
 
             <div>
-                <p class="comptes"><a href="clients.php?process=depot<?php echo "&id_client=".$client["id"] ?>">dépots</a></p>
-                <p class="modifier"><a href="clients.php?process=retrait<?php echo "&id_client=".$client["id"] ?>">retraits</a></p>
-                <p class="modifier"><a href="clients.php?process=decouvert<?php echo "&id_client=".$client["id"] ?>">Gestion du découvert</a></p>
-                <p class="supprimer"><a href="clients.php?process=delete_compte<?php echo "&id_client=".$client["id"] ?>">Supprimer</a></p>
+                <p class="comptes"><a href="comptes.php?process=depot<?php echo "&id_client=".$client["id"] ?>">dépots</a></p>
+                <p class="modifier"><a href="comptes.php?process=retrait<?php echo "&id_client=".$client["id"] ?>">retraits</a></p>
+                <p class="modifier"><a href="comptes.php?process=decouvert<?php echo "&id_client=".$client["id"] ?>">Gestion du découvert</a></p>
+                <p class="supprimer"><a href="comptes.php?process=delete_compte<?php echo "&id_client=".$client["id"] ?>">Supprimer</a></p>
             </div>
 
         </div>
