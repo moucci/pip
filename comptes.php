@@ -15,7 +15,7 @@ if (empty($_GET["id_client"]) or empty($_GET['process'])) {
 }
 
 $process_autorise = [
-    "comptes", "edit_client", "delete_client"
+    "comptes", "edit_client", "delete_client", "depot", "retrait", "decouvert"
 ];
 
 
@@ -84,23 +84,22 @@ if (empty($datas)) {
     <p class="une_alerte_trop_géniale">Actuellement, ce client n'a pas de comptes à sa disposition.</p>
 
     <div class="addcompte">
-        <a href="" comptes.php?process=addcompte">Créer un compte</a>
+        <a href="comptes.php?process=addcompte">Créer un compte</a>
     </div>
 
     <?php
 
 }
 
-var_dump ($datas);
 
 if($_GET['process'] === "depot"): ?>
 
-<p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
-<form action="">
-<input type="number" value="" name="montant" id="montant" placeholder="montant du dépot">
-</form>
 
+<form class="gestion compte" action="">
+<p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
+<input type="number" value="" name="montant" id="montant" placeholder="montant du dépot">
 <button class="adddepot" type="submit" onclick="return confirm('Confirmez vous le dépot ?');">Confirmer le dépot</button>
+</form>
 
 
 <?php
@@ -109,19 +108,26 @@ endif ;
 
 if($_GET['process'] === "retrait"): ?>
 
-    <p>retraits</p>
-  
-  
-  <?php
+<form class="gestion compte" action="">
+    <p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
+    <input type="number" value="" name="montant" id="montant" placeholder="montant du retrait">
+    <button class="adddepot" type="submit" onclick="return confirm('Confirmez vous le retrait ?');">Confirmer le retrait</button>
+</form>
+
+
+<?php
   
   endif ;
 
   if($_GET['process'] === "decouvert"): ?>
 
-    <p>découvert</p>
-  
-  
-  <?php
+<form class="gestion compte" action="">
+<p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
+<input type="number" value="" name="montant" id="montant" placeholder="découvert autorisé">
+<button class="adddepot" type="submit" onclick="return confirm('Confirmez vous la mise a jour du découvert ?');">Confirmer le découvert</button>
+</form>
+
+<?php
   
   endif ;
 
@@ -149,13 +155,13 @@ foreach ($datas as $data):
 
             <div>
                 <p class="comptes"><a
-                            href="comptes.php?process=depot<?php echo "&id_client=" . $data["id"] ?>">dépots</a></p>
-                <p class="modifier"><a href="comptes.php?process=retrait<?php echo "&id_client=" . $data["id"] ?>">retraits</a>
+                            href="comptes.php?process=depot<?php echo "&id_client=" . $data["id_client"] ?>">dépots</a></p>
+                <p class="modifier"><a href="comptes.php?process=retrait<?php echo "&id_client=" . $data["id_client"] ?>">retraits</a>
                 </p>
-                <p class="modifier"><a href="comptes.php?process=decouvert<?php echo "&id_client=" . $data["id"] ?>">Gestion
+                <p class="modifier"><a href="comptes.php?process=decouvert<?php echo "&id_client=" . $data["id_client"] ?>">Gestion
                         du découvert</a></p>
                 <p class="supprimer"><a class="link_delete"
-                                        href="gestion-client.php?process=delete_compte&<?php echo "&id_compte=" . $data["id"] ?>">Supprimer</a>
+                                        href="gestion-client.php?process=delete_compte&<?php echo "&id_compte=" . $data["id_client"] ?>">Supprimer</a>
                 </p>
             </div>
 
