@@ -242,4 +242,53 @@ function deleteCompte()
 }
 
 
+    
+/**
+ * methode to register conseillers
+ * @param int $idConseiller
+ * @param string $nom
+ * @param string $prenom
+ * @param string $biday
+ * @param string $adresse
+ * @param string $complement_adresse
+ * @param string $code_postal 
+ * @param string $ville
+ * @param string $tel
+ * @param string $email
+ * @param int $rgpd
+ * @return string|void
+ */
+function addClient(string $idConseiller, string $nom, string $prenom, string $biday, string $adresse, string $complement_adresse, string $code_postal, string $ville, string $tel, string $email, int $rgpd)
+{
+    //try init connexion to data base
+    $db = getDb();
 
+    $query = "INSERT INTO `clients`  (id_conseiller, nom , prenom , biday , adresse , complement_adresse, code_postal, ville, tel, email, rgpd )
+                                    VALUES (:idConseiller, :nom , :prenom , :biday , :adresse , :complement_adresse, :code_postal, :ville, :tel, :email, :rgpd)";
+
+    //prepare query
+    $req = $db->prepare($query);
+
+    $req->bindParam(':idConseiller', $idConseiller, PDO::PARAM_INT);
+    $req->bindParam(':nom', $nom, PDO::PARAM_STR);
+    $req->bindParam(':prenom', $prenom, PDO::PARAM_STR);
+    $req->bindParam(':biday', $biday, PDO::PARAM_STR);
+    $req->bindParam(':adresse', $adresse, PDO::PARAM_STR);
+    $req->bindParam(':complement_adresse', $complement_adresse, PDO::PARAM_STR);
+    $req->bindParam(':code_postal', $code_postal, PDO::PARAM_STR);
+    $req->bindParam(':ville', $ville, PDO::PARAM_STR);
+    $req->bindParam(':tel', $tel, PDO::PARAM_STR);
+    $req->bindParam(':email', $email, PDO::PARAM_STR);
+    $req->bindParam(':rgpd', $rgpd, PDO::PARAM_INT);
+
+    //try ton insert new conseiller
+    try {
+        $req->execute();
+        header('Location:https://pip.test/gestions.php?register=true',);
+        die ; 
+    } catch (PDOException $error) {
+        if ($error->getCode() == '23000') {
+            return 'Client déja inscrit';
+        } else return 'Une erreur technique est survenue. Veuillez réessayer ultérieurement. Merci de votre compréhension.';
+    }
+}
