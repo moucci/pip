@@ -189,4 +189,8 @@ body h2 {
   text-align: center;
   margin-top: 50px;
   font-size: 25px;
+}
+
+#depot, #retrait, #decouvert {
+  text-align: center;
 }/*# sourceMappingURL=style.css.map */

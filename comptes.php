@@ -97,7 +97,7 @@ if($_GET['process'] === "depot"): ?>
 
 <form class="gestion compte" action="">
 <p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
-<input type="number" value="" name="montant" id="montant" placeholder="montant du dépot">
+<input type="number" value="" name="montant" id="depot" placeholder="montant du dépot">
 <button class="adddepot" type="submit" onclick="return confirm('Confirmez vous le dépot ?');">Confirmer le dépot</button>
 </form>
 
@@ -110,7 +110,7 @@ if($_GET['process'] === "retrait"): ?>
 
 <form class="gestion compte" action="">
     <p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
-    <input type="number" value="" name="montant" id="montant" placeholder="montant du retrait">
+    <input type="number" value="" name="montant" id="retrait" placeholder="montant du retrait">
     <button class="adddepot" type="submit" onclick="return confirm('Confirmez vous le retrait ?');">Confirmer le retrait</button>
 </form>
 
@@ -123,7 +123,7 @@ if($_GET['process'] === "retrait"): ?>
 
 <form class="gestion compte" action="">
 <p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
-<input type="number" value="" name="montant" id="montant" placeholder="découvert autorisé">
+<input type="number" value="" name="montant" id="decouvert" placeholder="découvert autorisé">
 <button class="adddepot" type="submit" onclick="return confirm('Confirmez vous la mise a jour du découvert ?');">Confirmer le découvert</button>
 </form>
 
