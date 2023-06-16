@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="331b45af-857b-49cd-be89-2b97c02b47db" name="Changes" comment="add register page">
-      <change afterPath="$PROJECT_DIR$/edit-client.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/validator.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/validator.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +79,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/laragon/www/appSocket",
+    "last_opened_file_path": "C:/laragon/www/pip",
     "list.type.of.created.stylesheet": "SCSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -92,6 +92,10 @@
   "keyToStringList": {
     "DatabaseDriversLRU": [
       "mysql"
+    ],
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
+      "GenericSQL",
+      "MySQL"
     ],
     "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
       "GitIgnore"
@@ -120,6 +124,7 @@
       <workItem from="1686568050987" duration="435000" />
       <workItem from="1686568492767" duration="13463000" />
       <workItem from="1686655984387" duration="20826000" />
+      <workItem from="1686915231957" duration="995000" />
     </task>
     <task id="LOCAL-00001" summary="add register page">
       <created>1686292064398</created>
