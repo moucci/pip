@@ -55,7 +55,7 @@ $datas = $req->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
-    <link rel="stylesheet" href="assets/mscss/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/app.js" defer></script>
 
     <title>Pip : Bienvenue</title>
@@ -63,20 +63,36 @@ $datas = $req->fetchAll(PDO::FETCH_ASSOC);
 <body>
 
 <header class="head_gestions">
+    <h2>Gestion des comptes clients</h2>
     <ul>
         <li>
             <img src="assets\img\pip.svg" alt="logo">
             <h1>Ça coule de source</h1>
         </li>
         <li><a href="gestions.php">Acceuil</a></li>
-        <li><a href="add-compte.php?process=add_compte&id_client=<?= $id_client ?>">Ajouter un compte</a></li>
+        <li><a href="add-compte.php?process=add_compte&id_client=<?= $id_client ?>">Ajouter un compte à un clients</a>
+        </li>
         <li><a href="login.php?logout">Déconnexion</a></li>
     </ul>
 
 </header>
 
-<h2>Gestion des comptes clients</h2>
 
+<?php if (!empty($_GET["msg"]) && $_GET["msg"] === "depot-compte-success"): ?>
+    <p class="success">Le dépôt à bien était pris en compte </p>
+<?php endif; ?>
+
+<?php if (!empty($_GET["msg"]) && $_GET["msg"] === "depot-compte-error"): ?>
+    <p class="error">Le dépôt n'a pas pu être pris en compte </p>
+<?php endif; ?>
+
+<?php if (!empty($_GET["msg"]) && $_GET["msg"] === "retrait-compte-success"): ?>
+    <p class="success">Le retraits à bien était pris en compte </p>
+<?php endif; ?>
+
+<?php if (!empty($_GET["msg"]) && $_GET["msg"] === "retrait-compte-error"): ?>
+    <p class="error">Le retrait n'a pas pu être pris en compte </p>
+<?php endif; ?>
 
 <?php
 if (empty($datas)) {
@@ -96,14 +112,13 @@ if (empty($datas)) {
 
 if ($_GET['process'] === "depot"): ?>
 
-
-    <form class="gestion compte" action="">
+    <form class="gestion compte" method="post" action="gestion-client.php?process=depot">
         <p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
         <input type="number" value="" name="montant" id="depot" placeholder="montant du dépot">
+        <input type="hidden" value="<?= $datas[0]["id"] ?>" name="id_compte" id="depot" placeholder="montant du dépot">
         <button class="adddepot" type="submit"
-                onclick="if(confirm('Confirmez vous le dépot ?')) window.location.href('gestion-compte.php?process=depot&id_client='.<?= $id_client ?>;')">
-            Confirmer le
-            dépot
+                onclick="confirm('Confirmez vous le dépot ?')">
+            Confirmer le dépot
         </button>
     </form>
 
@@ -114,9 +129,10 @@ endif;
 
 if ($_GET['process'] === "retrait"): ?>
 
-    <form class="gestion compte" action="">
+    <form class="gestion compte" method="post" action="gestion-client.php?process=retraits">
         <p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
         <input type="number" value="" name="montant" id="retrait" placeholder="montant du retrait">
+        <input type="hidden" value="<?= $datas[0]["id"] ?>" name="id_compte" id="depot" placeholder="montant du dépot">
         <button class="adddepot" type="submit" onclick="return confirm('Confirmez vous le retrait ?');">Confirmer le
             retrait
         </button>
@@ -138,10 +154,8 @@ if ($_GET['process'] === "decouvert"): ?>
     </form>
 
 <?php
-  
-  endif ;
 
-
+endif;
 
 
 foreach ($datas as $data):
