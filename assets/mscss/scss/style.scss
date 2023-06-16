@@ -206,7 +206,7 @@ body {
 
 .addcompte{
   text-align: center;
-  margin-top: 50px;
+  margin-top: 40px;
   font-size: 25px;
   
 
@@ -228,6 +228,20 @@ body {
   font-size: 25px;
 }
 
-#depot,#retrait,#decouvert{
+#depot,#retrait,#decouvert,#solde{
   text-align: center;
+}
+
+
+.typecompte{
+  font-size: 25px;
+}
+
+select{
+  margin-bottom: 25px;
+  font-size: 25px;
+}
+
+.comptebtn{
+  font-size: 12px;
 }
