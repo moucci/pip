@@ -136,8 +136,10 @@ if ($_GET['process'] === "decouvert"): ?>
     </form>
 
 <?php
+  
+  endif ;
 
-endif;
+
 
 
 foreach ($datas as $data):
