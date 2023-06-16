@@ -92,45 +92,50 @@ if (empty($datas)) {
 }
 
 
-if($_GET['process'] === "depot"): ?>
+if ($_GET['process'] === "depot"): ?>
 
 
-<form class="gestion compte" action="">
-<p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
-<input type="number" value="" name="montant" id="depot" placeholder="montant du dépot">
-<button class="adddepot" type="submit" onclick="return confirm('Confirmez vous le dépot ?');">Confirmer le dépot</button>
-</form>
+    <form class="gestion compte" action="">
+        <p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
+        <input type="number" value="" name="montant" id="depot" placeholder="montant du dépot">
+        <button class="adddepot" type="submit" onclick="return confirm('Confirmez vous le dépot ?');">Confirmer le
+            dépot
+        </button>
+    </form>
 
 
 <?php
 
-endif ;
+endif;
 
-if($_GET['process'] === "retrait"): ?>
+if ($_GET['process'] === "retrait"): ?>
 
-<form class="gestion compte" action="">
-    <p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
-    <input type="number" value="" name="montant" id="retrait" placeholder="montant du retrait">
-    <button class="adddepot" type="submit" onclick="return confirm('Confirmez vous le retrait ?');">Confirmer le retrait</button>
-</form>
+    <form class="gestion compte" action="">
+        <p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
+        <input type="number" value="" name="montant" id="retrait" placeholder="montant du retrait">
+        <button class="adddepot" type="submit" onclick="return confirm('Confirmez vous le retrait ?');">Confirmer le
+            retrait
+        </button>
+    </form>
 
+
+<?php
+
+endif;
+
+if ($_GET['process'] === "decouvert"): ?>
+
+    <form class="gestion compte" action="">
+        <p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
+        <input type="number" value="" name="montant" id="decouvert" placeholder="découvert autorisé">
+        <button class="adddepot" type="submit"
+                onclick="return confirm('Confirmez vous la mise a jour du découvert ?');">Confirmer le découvert
+        </button>
+    </form>
 
 <?php
   
   endif ;
-
-  if($_GET['process'] === "decouvert"): ?>
-
-<form class="gestion compte" action="">
-<p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
-<input type="number" value="" name="montant" id="decouvert" placeholder="découvert autorisé">
-<button class="adddepot" type="submit" onclick="return confirm('Confirmez vous la mise a jour du découvert ?');">Confirmer le découvert</button>
-</form>
-
-<?php
-  
-  endif ;
-
 
 
 
@@ -155,13 +160,16 @@ foreach ($datas as $data):
 
             <div>
                 <p class="comptes"><a
-                            href="comptes.php?process=depot<?php echo "&id_client=" . $data["id_client"] ?>">dépots</a></p>
-                <p class="modifier"><a href="comptes.php?process=retrait<?php echo "&id_client=" . $data["id_client"] ?>">retraits</a>
+                            href="comptes.php?process=depot<?php echo "&id_client=" . $data["id_client"] ?>">dépots</a>
                 </p>
-                <p class="modifier"><a href="comptes.php?process=decouvert<?php echo "&id_client=" . $data["id_client"] ?>">Gestion
+                <p class="modifier"><a
+                            href="comptes.php?process=retrait<?php echo "&id_client=" . $data["id_client"] ?>">retraits</a>
+                </p>
+                <p class="modifier"><a
+                            href="comptes.php?process=decouvert<?php echo "&id_client=" . $data["id_client"] ?>">Gestion
                         du découvert</a></p>
                 <p class="supprimer"><a class="link_delete"
-                                        href="gestion-client.php?process=delete_compte&<?php echo "&id_compte=" . $data["id_client"] ?>">Supprimer</a>
+                                        href="gestion-client.php?process=delete_compte&<?php echo "&id_compte=" . $data["id"] ?>">Supprimer</a>
                 </p>
             </div>
 
