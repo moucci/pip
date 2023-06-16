@@ -218,6 +218,7 @@ function deleteCompte()
             WHERE c.id = :id_compte
             AND cl.id_conseiller = :id_conseiller;";
 
+
     $req = $db->prepare($q);
     $req->bindParam(':id_compte', $idCompte, PDO::PARAM_INT);
     $req->bindParam(':id_conseiller', $idConseiller, PDO::PARAM_INT);
@@ -293,4 +294,146 @@ function addClient(string $idConseiller, string $nom, string $prenom, string $bi
             return 'Client déja inscrit';
         } else return 'Une erreur technique est survenue. Veuillez réessayer ultérieurement. Merci de votre compréhension.';
     }
+}
+
+/** methode  add money to account's user
+ * @return void
+ */
+function depotClient()
+{
+
+    //check id compte
+    if (empty($_POST["id_compte"]) || !is_numeric($_POST["id_compte"])) {
+        header('Location: comptes.php?process=id_compte_not_found&from=gestion-client-depot');
+        die();
+    }
+
+    //check montant
+    if (empty($_POST["montant"]) || !is_numeric($_POST["montant"])) {
+        header('Location: comptes.php?process=montant_not_found&from=gestion-client-depot');
+        die();
+    }
+
+    $idCompte = $_POST["id_compte"];
+    $idConseiller = $_SESSION['id'];
+    $montant = $_POST["montant"];
+
+    //get connexion db
+    $db = getDb();
+
+    $q = "UPDATE compte AS c
+            LEFT JOIN clients AS cl ON c.id_client = cl.id
+                SET c.solde = c.solde + :montant
+                WHERE c.id = :id_compte AND cl.id_conseiller = :id_conseiller;";
+
+    $req = $db->prepare($q);
+    $req->bindParam(':id_compte', $idCompte, PDO::PARAM_INT);
+    $req->bindParam(':id_conseiller', $idConseiller, PDO::PARAM_INT);
+    $req->bindParam(':montant', $montant, PDO::PARAM_INT);
+
+    //execute query
+    try {
+        $req->execute();
+    } catch (PDOException $e) {
+        echo "Une erreur est survenue , en temps normal je vous l'affiche pas je la log de un fichier php_error 
+                 mais la pour le dev voici l'erreur en question :" . $e->getMessage();
+        die;
+    }
+
+    $req = $db->prepare("SELECT id_client FROM compte  WHERE  id = :id_compte");
+    $req->bindParam(':id_compte', $idCompte, PDO::PARAM_INT);
+    //execute query
+    try {
+        $req->execute();
+    } catch (PDOException $e) {
+        echo "Une erreur est survenue , en temps normal je vous l'affiche pas je la log de un fichier php_error 
+                 mais la pour le dev voici l'erreur en question :" . $e->getMessage();
+        die;
+    }
+    //get id client
+    $idClient = $req->fetch(PDO::FETCH_OBJ)->id_client;
+
+
+    //if user deleted
+    if ($req->rowCount() > 0) {
+        header("Location: comptes.php?process=comptes&msg=depot-compte-success&id_client=$idClient");
+    } else {
+        header("Location: comptes.php?process=comptes&msg=depot-compte-error&id_client=$idClient");
+    }
+    die();
+
+}
+
+
+/** methode  add money to account's user
+ * @return void
+ */
+function retraitClient()
+{
+
+    //check id compte
+    if (empty($_POST["id_compte"]) || !is_numeric($_POST["id_compte"])) {
+        header('Location: comptes.php?process=id_compte_not_found&from=gestion-client-retrait');
+        die();
+    }
+
+    //check montant
+    if (empty($_POST["montant"]) || !is_numeric($_POST["montant"])) {
+        header('Location: comptes.php?process=montant_not_found&from=gestion-client-retrait');
+        die();
+    }
+
+    $idCompte = $_POST["id_compte"];
+    $idConseiller = $_SESSION['id'];
+    $montant = $_POST["montant"];
+
+    //get connexion db
+    $db = getDb();
+
+    //update new solde if user had money
+    $q = "UPDATE compte AS c
+            LEFT JOIN clients AS cl ON c.id_client = cl.id
+            SET c.solde = c.solde + c.decouvert  - :montant
+            WHERE c.id = :id_compte 
+            AND cl.id_conseiller = :id_conseiller
+            AND c.solde + c.decouvert >= :montant;";
+
+    $req = $db->prepare($q);
+    $req->bindParam(':id_compte', $idCompte, PDO::PARAM_INT);
+    $req->bindParam(':id_conseiller', $idConseiller, PDO::PARAM_INT);
+    $req->bindParam(':montant', $montant, PDO::PARAM_INT);
+
+    //execute query
+    try {
+        $req->execute();
+    } catch (PDOException $e) {
+        echo "Une erreur est survenue , en temps normal je vous l'affiche pas je la log de un fichier php_error 
+                 mais la pour le dev voici l'erreur en question :" . $e->getMessage();
+        die;
+    }
+
+    $update = $req->rowCount() > 0 ? true : false;
+
+    $req = $db->prepare("SELECT id_client FROM compte  WHERE  id = :id_compte");
+    $req->bindParam(':id_compte', $idCompte, PDO::PARAM_INT);
+    //execute query
+    try {
+        $req->execute();
+    } catch (PDOException $e) {
+        echo "Une erreur est survenue , en temps normal je vous l'affiche pas je la log de un fichier php_error 
+                 mais la pour le dev voici l'erreur en question :" . $e->getMessage();
+        die;
+    }
+    //get id client
+    $idClient = $req->fetch(PDO::FETCH_OBJ)->id_client;
+
+
+    //if user deleted
+    if ($update) {
+        header("Location: comptes.php?process=comptes&msg=retrait-compte-success&id_client=$idClient");
+    } else {
+        header("Location: comptes.php?process=comptes&msg=retrait-compte-error&id_client=$idClient");
+    }
+    die();
+
 }

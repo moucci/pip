@@ -56,6 +56,7 @@ require_once("includes/config.php");
     <p class="error">Aucun compte sélectionné</p>
 <?php endif; ?>
 
+
 <?php if (!empty($_GET["process"]) && $_GET["process"] === "action-not-found"): ?>
     <p class="error">Aucun action sélectionné</p>
 <?php endif;

@@ -7,9 +7,16 @@ if (!isset($_SESSION['is_connected'])) {
     die();
 }
 
+
 //list of valide action
 $process_autorise = [
-    "comptes", "edit_client", "delete_client", "add_client", "delete_compte"
+    "comptes",
+    "edit_client",
+    "delete_client",
+    "add_client",
+    "delete_compte",
+    "depot",
+    "retraits",
 ];
 
 //check if we have process
@@ -24,8 +31,10 @@ require_once('includes/validator.php');
 
 
 //choose a good action and execute it
-if (strtolower($_GET['process']) === 'comptes'):
-    listCompte();
+if (strtolower($_GET['process']) === 'depot'):
+    depotClient();
+elseif (strtolower($_GET['process']) === 'retraits'):
+    retraitClient();
 elseif (strtolower($_GET['process']) === 'edit_client'):
     editClient();
 elseif (strtolower($_GET['process']) === 'delete_client'):
