@@ -213,12 +213,8 @@ function deleteCompte()
     //get connexion db
     $db = getDb();
 
-    $q = "DELETE c FROM compte c 
-            INNER JOIN clients cl ON c.id_client = cl.id
-            WHERE c.id = :id_compte
-            AND cl.id_conseiller = :id_conseiller;";
-
-
+    $q = " DELETE FROM compte WHERE id = :id_compte 
+                     AND id_client = ( SELECT id FROM clients WHERE  id_conseiller = :id_conseiller)";
     $req = $db->prepare($q);
     $req->bindParam(':id_compte', $idCompte, PDO::PARAM_INT);
     $req->bindParam(':id_conseiller', $idConseiller, PDO::PARAM_INT);
@@ -246,6 +242,7 @@ function deleteCompte()
 }
 
 
+    
 /**
  * methode to register conseillers
  * @param int $idConseiller
@@ -254,7 +251,7 @@ function deleteCompte()
  * @param string $biday
  * @param string $adresse
  * @param string $complement_adresse
- * @param string $code_postal
+ * @param string $code_postal 
  * @param string $ville
  * @param string $tel
  * @param string $email
@@ -288,7 +285,7 @@ function addClient(string $idConseiller, string $nom, string $prenom, string $bi
     try {
         $req->execute();
         header('Location:https://pip.test/gestions.php?register=true',);
-        die;
+        die ; 
     } catch (PDOException $error) {
         if ($error->getCode() == '23000') {
             return 'Client déja inscrit';

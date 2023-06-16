@@ -131,8 +131,7 @@ if($_GET['process'] === "retrait"): ?>
   
   endif ;
 
-
-
+  
 
 
 foreach ($datas as $data):
