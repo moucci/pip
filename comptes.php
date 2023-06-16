@@ -15,7 +15,7 @@ if (empty($_GET["id_client"]) or empty($_GET['process'])) {
 }
 
 $process_autorise = [
-    "comptes", "edit_client", "delete_client", "depot", "retrait", "decouvert"
+    "comptes", "edit_client", "delete_client", "depot", "retrait", "decouvert", "addcompte"
 ];
 
 
@@ -29,6 +29,7 @@ if ($id_client === 0) {
     header('Location:gestions.php?bad_id');
     die();
 }
+
 
 
 require_once("includes/config.php");
@@ -106,6 +107,7 @@ if (empty($datas)) {
     <?php
 
 }
+
 
 
 if ($_GET['process'] === "depot"): ?>
