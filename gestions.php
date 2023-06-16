@@ -62,7 +62,6 @@ require_once("includes/config.php");
 
 $db = getDb();
 
-
 $sql = "SELECT * FROM `clients` WHERE `id_conseiller` = :id_conseiller";
 
 // $requete = $db->query($sql);

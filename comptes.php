@@ -68,7 +68,7 @@ $datas = $req->fetchAll(PDO::FETCH_ASSOC);
             <h1>Ça coule de source</h1>
         </li>
         <li><a href="gestions.php">Acceuil</a></li>
-        <li><a href="add-client.php">Ajouter un client</a></li>
+        <li><a href="add-compte.php?process=add_compte&id_client=<?= $id_client ?>">Ajouter un compte</a></li>
         <li><a href="login.php?logout">Déconnexion</a></li>
     </ul>
 
@@ -98,7 +98,9 @@ if ($_GET['process'] === "depot"): ?>
     <form class="gestion compte" action="">
         <p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
         <input type="number" value="" name="montant" id="depot" placeholder="montant du dépot">
-        <button class="adddepot" type="submit" onclick="return confirm('Confirmez vous le dépot ?');">Confirmer le
+        <button class="adddepot" type="submit"
+                onclick="if(confirm('Confirmez vous le dépot ?')) window.location.href('gestion-compte.php?process=depot&id_client='.<?= $id_client ?>;')">
+            Confirmer le
             dépot
         </button>
     </form>
