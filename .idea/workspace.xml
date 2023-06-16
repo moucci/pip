@@ -6,13 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="331b45af-857b-49cd-be89-2b97c02b47db" name="Changes" comment="add register page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/comptes.php" beforeDir="false" afterPath="$PROJECT_DIR$/comptes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestion-client.php" beforeDir="false" afterPath="$PROJECT_DIR$/gestion-client.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestions.php" beforeDir="false" afterPath="$PROJECT_DIR$/gestions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/validator.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/validator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/add-client.php" beforeDir="false" afterPath="$PROJECT_DIR$/add-client.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +124,7 @@
       <workItem from="1686568050987" duration="435000" />
       <workItem from="1686568492767" duration="13463000" />
       <workItem from="1686655984387" duration="20826000" />
-      <workItem from="1686915231957" duration="8111000" />
+      <workItem from="1686915231957" duration="9178000" />
     </task>
     <task id="LOCAL-00001" summary="add register page">
       <created>1686292064398</created>
