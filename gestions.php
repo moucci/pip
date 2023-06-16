@@ -45,11 +45,11 @@ require_once("includes/config.php");
 <?php endif; ?>
 
 <?php if (!empty($_GET["process"]) && $_GET["process"] === "delete-compte-success"): ?>
-    <p class="success">Le compte client à été supprimé</p>
+    <p class="success">Le compte du client à été supprimé</p>
 <?php endif; ?>
 
 <?php if (!empty($_GET["process"]) && $_GET["process"] === "delete-compte-error"): ?>
-    <p class="error">Le compte client n'a pas être supprimé</p>
+    <p class="error">Le compte du client n'a pas être supprimé</p>
 <?php endif; ?>
 
 <?php if (!empty($_GET["process"]) && $_GET["process"] === "id_compte_not_found"): ?>
@@ -59,7 +59,6 @@ require_once("includes/config.php");
 <?php if (!empty($_GET["process"]) && $_GET["process"] === "action-not-found"): ?>
     <p class="error">Aucun action sélectionné</p>
 <?php endif;
-
 
 $db = getDb();
 
