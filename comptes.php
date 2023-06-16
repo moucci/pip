@@ -91,6 +91,44 @@ if (empty($datas)) {
 
 }
 
+var_dump ($datas);
+
+if($_GET['process'] === "depot"): ?>
+
+<p>Solde actuel : <?= $datas[0]["solde"]; ?></p>
+<form action="">
+<input type="number" value="" name="montant" id="montant" placeholder="montant du dépot">
+</form>
+
+<button class="adddepot" type="submit" onclick="return confirm('Confirmez vous le dépot ?');">Confirmer le dépot</button>
+
+
+<?php
+
+endif ;
+
+if($_GET['process'] === "retrait"): ?>
+
+    <p>retraits</p>
+  
+  
+  <?php
+  
+  endif ;
+
+  if($_GET['process'] === "decouvert"): ?>
+
+    <p>découvert</p>
+  
+  
+  <?php
+  
+  endif ;
+
+
+
+
+
 foreach ($datas as $data):
     ?>
     <div class="clients">
