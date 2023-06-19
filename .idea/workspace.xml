@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="331b45af-857b-49cd-be89-2b97c02b47db" name="Changes" comment="add register page" />
+    <list default="true" id="331b45af-857b-49cd-be89-2b97c02b47db" name="Changes" comment="add register page">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/validator.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/validator.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -76,7 +79,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/laragon/www/appSocket",
+    "last_opened_file_path": "C:/laragon/www/pip/database",
     "list.type.of.created.stylesheet": "SCSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -100,6 +103,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\laragon\www\pip\database" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\laragon\www\pip\assets\js" />
       <recent name="C:\laragon\www\pip\assets\img" />
@@ -122,6 +128,7 @@
       <workItem from="1686568492767" duration="13463000" />
       <workItem from="1686655984387" duration="20826000" />
       <workItem from="1686915231957" duration="33166000" />
+      <workItem from="1687174703212" duration="478000" />
     </task>
     <task id="LOCAL-00001" summary="add register page">
       <created>1686292064398</created>

@@ -292,7 +292,7 @@ function addClient(string $idConseiller, string $nom, string $prenom, string $bi
     //try ton insert new conseiller
     try {
         $req->execute();
-        header('Location:https://pip.test/gestions.php?register=true',);
+        header('Location:gestions.php?register=true',);
         die;
     } catch (PDOException $error) {
         if ($error->getCode() == '23000') {
