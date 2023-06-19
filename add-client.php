@@ -4,86 +4,56 @@ session_start();
 if (!empty($_POST)) {
 
     require_once('includes/validator.php');
-
+    
     $idConseiller = $_SESSION['id'];
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $biday = $_POST['biday'];
-    $adresse = $_POST['adresse'];
-    $complement_adresse = $_POST['complement_adresse'];
-    $code_postal = $_POST['code_postal'];
-    $ville = $_POST['ville'];
-    $tel = $_POST['tel'];
-    $email = $_POST['email'];
+    $nom = trim($_POST['nom']) ?? '';
+    $prenom = trim($_POST['prenom']) ?? '';
+    $biday = trim($_POST['biday']) ?? '';
+    $adresse = trim($_POST['adresse']) ?? '';
+    $complement_adresse = trim($_POST['complement_adresse']) ?? '';
+    $code_postal = trim($_POST['code_postal']) ?? '';
+    $ville = trim($_POST['ville']) ?? '';
+    $tel = trim($_POST['tel']) ?? '';
+    $email = trim($_POST['email']) ?? '';
+    $rgpd = $_POST['rgpd'] ?? 0;
 
-    if (!empty($_POST['rgpd'])) {
-        $rgpd = $_POST['rgpd'];
-    }
-
-
+    //init array eroor empty
     $errors = [];
 
-    //nom
-    $checkName = checkName('nom', $_POST['nom']);
-    if ($checkName !== true) {
-        $errors['nom'] = $checkName;
-    }
+    //check nom
+    $checkName = checkName('nom', $nom);
+    if ($checkName !== true) $errors['nom'] = $checkName;
 
+    //check prenom
+    $checkPrenom = checkName('prenom', $prenom);
+    if ($checkPrenom !== true) $errors['prenom'] = $checkPrenom;
 
-    //prenom
-    $checkPrenom = checkName('prenom', $_POST['prenom']);
-    if ($checkPrenom !== true) {
-        $errors['prenom'] = $checkPrenom;
-    }
-
-
-    //biday
-    $checkBiday = $_POST['biday'];
-    if (!preg_match('/^\d{4}-\d{2}-\d{2}/', $checkBiday)) {
+    //check biday
+    if (!preg_match('/^\d{4}-\d{2}-\d{2}/', $biday))
         $errors['biday'] = "Le champ date de naissance est invalide.";
-    }
 
+    //check adresse
+    if (empty($adresse)) $errors['adresse'] = "Le champ adresse est requis.";
 
-    //adresse
-    $checkAdresse = $_POST['adresse'];
-    if (empty($checkAdresse)) {
-        $errors['adresse'] = "Le champ adresse est requis.";
-    }
+    // check code_postal
+    if (!preg_match('/^\d{4,7}/', $code_postal)) $errors['code_postal'] = "Le champ code postal est invalide.";
 
-
-    //code_postal
-    $checkCodePostal = $_POST['code_postal'];
-    if (!preg_match('/^\d{4,7}/', $checkCodePostal)) {
-        $errors['code_postal'] = "Le champ code postal est invalide.";
-    }
-
-
-    //ville
-    $checkVille = $_POST['ville'];
-    if (!preg_match('/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/', $checkVille)) {
+    //check ville
+    if (!preg_match('/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/', $ville))
         $errors['ville'] = "Le champ ville est invalide.";
-    }
 
 
-    //tel
-    $checkTel = $_POST['tel'];
-    if (!preg_match('/^[0-9][0-9]{9}$/', $checkTel)) {
+    //check tel
+    if (!preg_match('/^[0-9][0-9]{9}$/', $tel))
         $errors['tel'] = "Le champ numéro de téléphone est invalide.";
-    }
 
 
-    //email
-    $checkEmail = checkEmail($_POST['email']);
-    if ($checkEmail !== true) {
-        $errors['email'] = $checkEmail;
-    }
-
+    //check email
+    $checkEmail = checkEmail($email);
+    if ($checkEmail !== true) $errors['email'] = $checkEmail;
 
     //rgpd
-    if (isset($_POST['rgpd']) === false) {
-        $errors['rgpd'] = 'Veuillez cocher la case.';
-    }
-
+    if ($rgpd !== '1') $errors['rgpd'] = 'Veuillez cocher la case.';
 
     // Vérifier s'il y a des erreurs
     if (empty($errors)) {
@@ -105,11 +75,19 @@ if (!empty($_POST)) {
     <title>Document</title>
 </head>
 <body>
+<header>
+    <nav>
+        <a href=""><img src="assets\img\pip.svg" alt="logo"></a>
+        <div>
+            <a href="gestions.php">Acceuil</a>
+            <a href="add-compte.php">Ajouter un compte à un clients</a>
+            <a href="login.php?logout">Conseiller : <?= $_SESSION["name"] ?><span>Déconnexion</span></a>
+        </div>
 
+    </nav>
+    <h1 style="text-align: center">Ajouter un client à votre portefeuille </h1>
+</header>
 <main id="inscription">
-    <img src="assets\img\pip.svg" alt="logo">
-    <h1>Ça coule de source</h1>
-    <h2>Inscription</h2>
     <h3 style="color: red"><?= (isset($msgError)) ? $msgError : '' ?></h3>
     <form action="add-client.php" method="post" name="inscription">
         <span><?= (isset($errors['nom'])) ? $errors['nom'] : '' ?></span>
@@ -121,22 +99,32 @@ if (!empty($_POST)) {
                name="prenom" id="prenom" placeholder="Prénom">
 
         <span><?= (isset($errors['biday'])) ? $errors['biday'] : '' ?></span>
-        <input type="date" name="biday" id="biday">
+        <input type="date" value="<?= isset($_POST['biday']) ? htmlspecialchars($_POST['biday']) : '' ?>"
+               name="biday" id="biday">
 
         <span><?= (isset($errors['adresse'])) ? $errors['adresse'] : '' ?></span>
-        <input type="text" name="adresse" id="adresse" placeholder="Adresse">
+        <input type="text" value="<?= isset($_POST['adresse']) ? htmlspecialchars($_POST['adresse']) : '' ?>"
+               name="adresse" id="adresse" placeholder="Adresse">
 
         <span><?= (isset($errors['complement_adresse'])) ? $errors['complement_adresse'] : '' ?></span>
-        <input type="text" name="complement_adresse" id="complement_adresse" placeholder="Complément d'adresse">
+        <input type="text"
+               value="<?= isset($_POST['complement_adresse']) ? htmlspecialchars($_POST['complement_adresse']) : '' ?>"
+               name="complement_adresse" id="complement_adresse" placeholder="Complément d'adresse">
 
         <span><?= (isset($errors['code_postal'])) ? $errors['code_postal'] : '' ?></span>
-        <input type="text" name="code_postal" id="code_postal" placeholder="Code postal">
+        <input type="text"
+               value="<?= isset($_POST['code_postal']) ? htmlspecialchars($_POST['code_postal']) : '' ?>"
+               name="code_postal" id="code_postal" placeholder="Code postal">
 
         <span><?= (isset($errors['ville'])) ? $errors['ville'] : '' ?></span>
-        <input type="text" name="ville" id="ville" placeholder="Ville">
+        <input type="text"
+               value="<?= isset($_POST['ville']) ? htmlspecialchars($_POST['ville']) : '' ?>"
+               name="ville" id="ville" placeholder="Ville">
 
         <span><?= (isset($errors['tel'])) ? $errors['tel'] : '' ?></span>
-        <input type="text" name="tel" id="tel" placeholder="Numéro de téléphone">
+        <input type="text"
+               value="<?= isset($_POST['tel']) ? htmlspecialchars($_POST['tel']) : '' ?>"
+               name="tel" id="tel" placeholder="Numéro de téléphone">
 
 
         <span><?= (isset($errors['email'])) ? $errors['email'] : '' ?></span>

@@ -203,11 +203,16 @@ function deleteClient()
 function deleteCompte()
 {
     if (empty($_GET["id_compte"]) || !is_numeric($_GET["id_compte"])) {
-        header('Location:gestions.php?process=id_compte_not_found&from=gestion-client');
+        header('Location:gestions.php?process=id_compte_not_found&from=gestion-client-delete-compte');
+        die();
+    }
+    if (empty($_GET["id_client"]) || !is_numeric($_GET["id_client"])) {
+        header('Location:gestions.php?process=id_client_not_found&from=gestion-client-delete-compte');
         die();
     }
 
     $idCompte = $_GET["id_compte"];
+    $idClient = $_GET['id_client'];
     $idConseiller = $_SESSION['id'];
 
     //get connexion db
@@ -235,10 +240,10 @@ function deleteCompte()
     //if user deleted
     if ($req->rowCount() > 0) {
         $req->closeCursor();
-        header('Location: gestions.php?process=delete-compte-success');
+        header("Location: comptes.php?id_client=$idClient&process=comptes&msg=delete-compte-success");
     } else {
         $req->closeCursor();
-        header('Location: gestions.php?process=delete-compte-error');
+        header("Location: comptes.php?id_client=$idClient&process=comptes&msg=delete-compte-error");
     }
     die();
 
@@ -296,6 +301,40 @@ function addClient(string $idConseiller, string $nom, string $prenom, string $bi
     }
 }
 
+function editClient(int $idClient, string $nom, string $prenom, string $biday, string $adresse, string $complement_adresse, string $code_postal, string $ville, string $tel, string $email)
+{
+    $db = getDb();
+    $q = "UPDATE clients SET nom = :nom, prenom = :prenom, biday = :biday, adresse = :adresse, complement_adresse = :complement_adresse, code_postal = :code_postal, ville = :ville, tel = :tel, email = :email WHERE id = :idClient AND id_conseiller = :idConseiller";
+    $req = $db->prepare($q);
+    $req->bindParam(":nom", $nom);
+    $req->bindParam(":prenom", $prenom);
+    $req->bindParam(":biday", $biday);
+    $req->bindParam(":adresse", $adresse);
+    $req->bindParam(":complement_adresse", $complement_adresse);
+    $req->bindParam(":code_postal", $code_postal);
+    $req->bindParam(":ville", $ville);
+    $req->bindParam(":tel", $tel);
+    $req->bindParam(":email", $email);
+    $req->bindParam(":idClient", $idClient);
+    $req->bindParam(":idConseiller", $_SESSION["id"]);
+
+    //try update
+    try {
+        $req->execute();
+        $rowCount = $req->rowCount();
+        if ($rowCount === 0) {
+            throw new Exception("Aucune ligne mise à jour");
+        }
+    } catch (Exception $e) {
+        header('Location: gestions.php?process=edit-client-error&from=edit-client-db-update');
+        die();
+    }
+
+    header('Location: gestions.php?process=edit-client-success');
+    die();
+}
+
+
 /** methode  add money to account's user
  * @return void
  */
@@ -309,10 +348,17 @@ function depotClient()
     }
 
     //check montant
-    if (empty($_POST["montant"]) || !is_numeric($_POST["montant"])) {
+    if (!isset($_POST["montant"]) || !is_numeric($_POST["montant"])) {
         header('Location: comptes.php?process=montant_not_found&from=gestion-client-depot');
         die();
     }
+
+    //check client id
+    if (empty($_POST["id_client"]) || !is_numeric($_POST["id_client"])) {
+        header('Location:gestions.php?process=id_client_not_found&from=gestion-client-decouvert');
+        die();
+    }
+
 
     $idCompte = $_POST["id_compte"];
     $idConseiller = $_SESSION['id'];
@@ -378,10 +424,17 @@ function retraitClient()
     }
 
     //check montant
-    if (empty($_POST["montant"]) || !is_numeric($_POST["montant"])) {
+    if (!isset($_POST["montant"]) || !is_numeric($_POST["montant"])) {
         header('Location: comptes.php?process=montant_not_found&from=gestion-client-retrait');
         die();
     }
+
+    //check client id
+    if (empty($_POST["id_client"]) || !is_numeric($_POST["id_client"])) {
+        header('Location:gestions.php?process=id_client_not_found&from=gestion-client-decouvert');
+        die();
+    }
+
 
     $idCompte = $_POST["id_compte"];
     $idConseiller = $_SESSION['id'];
@@ -392,11 +445,11 @@ function retraitClient()
 
     //update new solde if user had money
     $q = "UPDATE compte AS c
-            LEFT JOIN clients AS cl ON c.id_client = cl.id
-            SET c.solde = c.solde + c.decouvert  - :montant
-            WHERE c.id = :id_compte 
-            AND cl.id_conseiller = :id_conseiller
-            AND c.solde + c.decouvert >= :montant;";
+                LEFT JOIN clients AS cl ON c.id_client = cl.id
+                SET c.solde = (c.solde - :montant)
+                WHERE c.id = :id_compte 
+                AND cl.id_conseiller = :id_conseiller
+                AND (c.solde - :montant) >= -c.decouvert;";
 
     $req = $db->prepare($q);
     $req->bindParam(':id_compte', $idCompte, PDO::PARAM_INT);
@@ -435,5 +488,128 @@ function retraitClient()
         header("Location: comptes.php?process=comptes&msg=retrait-compte-error&id_client=$idClient");
     }
     die();
+
+}
+
+/**methode  add Compte to client
+ * @return void
+ */
+function addCompte()
+{
+
+    //check id client
+    if (empty($_POST["id_client"]) || !is_numeric($_POST["id_client"])) {
+        header('Location: add-compte.php?process=id_client_not_foundt&from=gestion-client-add-compte');
+        die();
+    }
+    //check type compte
+    if (empty($_POST["type"])) {
+        header('Location: comptes.php?process=type_not_found&from=gestion-client-add-compte');
+        die();
+    }
+    //check solde compte
+    if (empty($_POST["solde"]) || !is_numeric($_POST["solde"])) {
+        header('Location: comptes.php?process=invalid_solde&from=gestion-client-add-compte');
+        die();
+    }
+
+    $idClient = $_POST["id_client"];
+    $idConseiller = $_SESSION['id'];
+    $solde = $_POST["solde"];
+    $type = strtolower($_POST["type"]);
+
+    //get connexion db
+    $db = getDb();
+
+    $q = "INSERT INTO compte (id_client, type_compte, solde) VALUES (:idClient , :type , :solde)";
+
+    $req = $db->prepare($q);
+    $req->bindParam(":idClient", $idClient, PDO::PARAM_INT);
+    $req->bindParam(":type", $type, PDO::PARAM_STR);
+    $req->bindParam(":solde", $solde, PDO::PARAM_INT);
+
+    try {
+        $req->execute();
+    } catch (PDOException $e) {
+        echo "Une erreur est survenue , en temps normal je vous l'affiche pas je la log de un fichier php_error 
+                 mais la pour le dev voici l'erreur en question :" . $e->getMessage();
+        die;
+    }
+
+    //if added account
+    if ($req->rowCount() > 0) {
+        $req->closeCursor();
+        header("Location: comptes.php?id_client=$idClient&process=comptes&msg=add-compte-success");
+    } else {
+        $req->closeCursor();
+        header("Location: comptes.php?id_client=$idClient&process=comptes&msg=add-compte-error");
+    }
+    die();
+
+
+}
+
+function decouvertClient()
+{
+
+
+    //check id compte
+    if (empty($_POST["id_compte"]) || !is_numeric($_POST["id_compte"])) {
+        header('Location: gestion.php?process=id_compte_not_found&from=gestion-client-decouvert-idc');
+        die();
+    }
+
+    //check montant
+    if (!isset($_POST["montant"]) || !is_numeric($_POST["montant"])) {
+        header('Location: gestion.php?process=montant_not_found&from=gestion-client-decouvert-m');
+        die();
+    }
+
+    //check client id
+    if (empty($_POST["id_client"]) || !is_numeric($_POST["id_client"])) {
+        header('Location:gestions.php?process=id_client_not_found&from=gestion-client-decouvert-idc');
+        die();
+    }
+
+
+    $idCompte = $_POST["id_compte"];
+    $idClient = $_POST["id_client"];
+    $idConseiller = $_SESSION['id'];
+    $montant = $_POST["montant"];
+
+    //get connexion db
+    $db = getDb();
+
+    //update new solde if user had money
+    $q = "UPDATE compte AS c
+            LEFT JOIN clients AS cl ON c.id_client = cl.id
+            SET c.decouvert = :montant
+            WHERE c.id = :id_compte 
+            AND cl.id_conseiller = :id_conseiller";
+
+    $req = $db->prepare($q);
+    $req->bindParam(':id_compte', $idCompte, PDO::PARAM_INT);
+    $req->bindParam(':id_conseiller', $idConseiller, PDO::PARAM_INT);
+    $req->bindParam(':montant', $montant, PDO::PARAM_INT);
+
+    //execute query
+    try {
+        $req->execute();
+    } catch (PDOException $e) {
+        echo "Une erreur est survenue , en temps normal je vous l'affiche pas je la log de un fichier php_error 
+                 mais la pour le dev voici l'erreur en question :" . $e->getMessage();
+        die;
+    }
+
+    $update = $req->rowCount() > 0 ? true : false;
+
+    //if user deleted
+    if ($update) {
+        header("Location: comptes.php?process=comptes&msg=decouvert-compte-success&id_client=$idClient");
+    } else {
+        header("Location: comptes.php?process=comptes&msg=decouvert-compte-error&id_client=$idClient");
+    }
+    die();
+
 
 }

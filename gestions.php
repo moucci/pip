@@ -16,25 +16,27 @@ require_once("includes/config.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
-    <link rel="stylesheet" href="assets/mscss/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/app.js" defer></script>
 
     <title>Pip : Bienvenue</title>
 </head>
 <body>
 
-<header class="head_gestions">
-    <ul>
-        <li>
-            <img src="assets/img/pip.svg" alt="logo">
-            <h1>Ça coule de source</h1>
-        </li>
-        <li><a href="gestions.php">Acceuil</a></li>
-        <li><a href="add-client.php">Ajouter un client</a></li>
-        <li><a href="login.php?logout">Déconnexion</a></li>
-    </ul>
 
+<header>
+    <nav>
+        <a href=""><img src="assets\img\pip.svg" alt="logo"></a>
+        <div>
+            <a href="gestions.php">Acceuil</a>
+            <a href="add-client.php">Ajouter un client</a>
+            <a href="login.php?logout">Conseiller : <?= $_SESSION->name ?><span>Déconnexion</span></a>
+        </div>
+
+    </nav>
+    <h1>List de vos clients</h1>
 </header>
+
 
 <?php if (!empty($_GET["process"]) && $_GET["process"] === "delete-client-success"): ?>
     <p class="success">Votre client a bien été supprimé.</p>
@@ -44,13 +46,7 @@ require_once("includes/config.php");
     <p class="error">Aucun client sélectionné</p>
 <?php endif; ?>
 
-<?php if (!empty($_GET["process"]) && $_GET["process"] === "delete-compte-success"): ?>
-    <p class="success">Le compte du client à été supprimé</p>
-<?php endif; ?>
 
-<?php if (!empty($_GET["process"]) && $_GET["process"] === "delete-compte-error"): ?>
-    <p class="error">Le compte du client n'a pas être supprimé</p>
-<?php endif; ?>
 
 <?php if (!empty($_GET["process"]) && $_GET["process"] === "id_compte_not_found"): ?>
     <p class="error">Aucun compte sélectionné</p>
@@ -59,6 +55,15 @@ require_once("includes/config.php");
 
 <?php if (!empty($_GET["process"]) && $_GET["process"] === "action-not-found"): ?>
     <p class="error">Aucun action sélectionné</p>
+<?php endif; ?>
+
+<?php if (!empty($_GET["process"]) && $_GET["process"] === "edit-client-success"): ?>
+    <p class="success">La fiche du client à bien était modifier</p>
+<?php endif; ?>
+
+
+<?php if (!empty($_GET["process"]) && $_GET["process"] === "edit-client-error"): ?>
+    <p class="error">La fiche du client n'a pu être modifier</p>
 <?php endif;
 
 $db = getDb();
@@ -75,6 +80,7 @@ $requete->execute();
 
 $clients = $requete->fetchAll(PDO::FETCH_ASSOC);
 
+
 if (empty($clients)):?>
 
     <p class="une_alerte_trop_géniale">Vous ne gérez actuellement aucun pig... clients. Veuillez, s'il vous plait,
@@ -86,28 +92,24 @@ foreach ($clients as $client):?>
     <div class="clients">
 
         <div class="image">
-            <div></div>
+            <img src="assets/img/img-user.svg" alt="">
         </div>
 
         <div class="infos">
             <ul>
-                <li>Prénom : <?= $client["prenom"]; ?></li>
+                <li>Identifiant Client : <?= $client["id"]; ?></li>
                 <li>Nom : <?= $client["nom"]; ?></li>
+                <li>Prénom : <?= $client["prenom"]; ?></li>
                 <li>Email : <?= $client["email"]; ?></li>
                 <li>Ville : <?= $client["ville"]; ?></li>
             </ul>
-
-            <div class="trait"></div>
-
             <div>
-                <p class="comptes"><a href="comptes.php?process=comptes<?php echo "&id_client=" . $client["id"] ?>">Compte(s)</a>
-                </p>
-                <p class="modifier"><a
-                            href="clients.php?process=edit_client<?php echo "&id_client=" . $client["id"] ?>">Modifier</a>
-                </p>
-                <p class="supprimer"><a class="link_delete"
-                                        href="gestion-client.php?process=delete_client<?php echo "&id_client=" . $client["id"] ?>">Supprimer</a>
-                </p>
+                <a class="btn-green" href="comptes.php?process=comptes&id_client=<?= $client["id"] ?>">Compte(s)</a>
+                <a class="btn-orange"
+                   href="edit-client.php?id_client=<?= $client["id"] ?>">Modifier</a>
+                <a class=" btn-red link_delete"
+                   href="gestion-client.php?process=delete_client&id_client=<?= $client["id"] ?>">Supprimer</a>
+
             </div>
 
         </div>

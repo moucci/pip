@@ -13,10 +13,11 @@ $process_autorise = [
     "comptes",
     "edit_client",
     "delete_client",
-    "add_client",
     "delete_compte",
     "depot",
     "retraits",
+    "add_compte",
+    "decouvert"
 ];
 
 //check if we have process
@@ -26,21 +27,34 @@ if (empty($_GET['process']) || !in_array($_GET['process'], $process_autorise)) {
 }
 
 
-//import  function page
+//import function page
 require_once('includes/validator.php');
 
 
 //choose a good action and execute it
-if (strtolower($_GET['process']) === 'depot'):
-    depotClient();
-elseif (strtolower($_GET['process']) === 'retraits'):
-    retraitClient();
-elseif (strtolower($_GET['process']) === 'edit_client'):
-    editClient();
-elseif (strtolower($_GET['process']) === 'delete_client'):
-    deleteClient();
-elseif (strtolower($_GET['process']) === 'delete_compte'):
-    deleteCompte();
-elseif (strtolower($_GET['process']) === 'add_client'):
-    addClient();
-endif;
+switch (strtolower($_GET['process'])) {
+    case 'depot':
+        depotClient();
+        break;
+    case 'retraits':
+        retraitClient();
+        break;
+    case 'decouvert':
+        decouvertClient();
+        break;
+    case 'edit_client':
+        editClient();
+        break;
+    case 'delete_client':
+        deleteClient();
+        break;
+    case 'delete_compte':
+        deleteCompte();
+        break;
+    case 'add_compte':
+        addCompte();
+        break;
+    default:
+        header('Location:gestions.php?process=action-not-found&from=gestion-client-switch');
+        break;
+}
