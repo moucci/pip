@@ -63,7 +63,7 @@ function checkPass(string $value): bool|string
         return "La longueur du mot de passe est incorrecte. Le mot de passe doit comporter au moins 16 caractères.";
     }
     // Vérifier les caractères requis
-    if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$&_\-^%])[A-Za-z\d@$&_\-^%]{16,}$/', $value)) {
+    if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@?!"+$*#&_\-^%])[A-Za-z\d@?#"!+$*&_\-^%]{16,}$/', $value)) {
         return "Le mot de passe est invalide. Il doit contenir au moins 16 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial.";
     }
     return true;
@@ -220,8 +220,8 @@ function deleteCompte()
 
     $q = "DELETE c FROM compte c 
             INNER JOIN clients cl ON c.id_client = cl.id
-            WHERE c.id = :id_compte
-            AND cl.id_conseiller = :id_conseiller;";
+            WHERE c.id = :id_compte and c.solde = 0 
+            AND cl.id_conseiller = :id_conseiller; ";
 
 
     $req = $db->prepare($q);
@@ -515,7 +515,7 @@ function addCompte()
 
     $idClient = $_POST["id_client"];
     $idConseiller = $_SESSION['id'];
-    $solde = $_POST["solde"];
+    $solde = ($_POST["solde"] < 0) ? 0 : $_POST["solde"];
     $type = strtolower($_POST["type"]);
 
     //get connexion db
