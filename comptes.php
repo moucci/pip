@@ -74,7 +74,7 @@ $datas = $req->fetchAll(PDO::FETCH_ASSOC);
     <nav>
         <a href=""><img src="assets\img\pip.svg" alt="logo"></a>
         <div>
-            <a href="gestions.php">Acceuil</a>
+            <a href="gestions.php">Accueil</a>
             <a href="add-compte.php?process=add_compte&id_client=<?= $id_client ?>">Ajouter un compte à un clients</a>
             <a href="login.php?logout">Conseiller : <?= $_SESSION->name ?><span>Déconnexion</span></a>
         </div>

@@ -28,7 +28,7 @@ require_once("includes/config.php");
     <nav>
         <a href=""><img src="assets\img\pip.svg" alt="logo"></a>
         <div>
-            <a href="gestions.php">Acceuil</a>
+            <a href="gestions.php">accueil</a>
             <a href="add-client.php">Ajouter un client</a>
             <a href="login.php?logout">Conseiller : <?= $_SESSION->name ?><span>Déconnexion</span></a>
         </div>

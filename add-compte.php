@@ -60,7 +60,7 @@ $listTypeCompte = explode(",", str_replace("'", "", substr($enumList->COLUMN_TYP
     <nav>
         <a href=""><img src="assets\img\pip.svg" alt="logo"></a>
         <div>
-            <a href="gestions.php">Acceuil</a>
+            <a href="gestions.php">Accueil</a>
             <a href="login.php?logout">Déconnexion</a>
         </div>
 
