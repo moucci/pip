@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="331b45af-857b-49cd-be89-2b97c02b47db" name="Changes" comment="add register page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/validator.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/validator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/add-compte.php" beforeDir="false" afterPath="$PROJECT_DIR$/add-compte.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +128,7 @@
       <workItem from="1686568492767" duration="13463000" />
       <workItem from="1686655984387" duration="20826000" />
       <workItem from="1686915231957" duration="33166000" />
-      <workItem from="1687174703212" duration="1811000" />
+      <workItem from="1687174703212" duration="4037000" />
     </task>
     <task id="LOCAL-00001" summary="add register page">
       <created>1686292064398</created>
