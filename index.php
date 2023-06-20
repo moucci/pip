@@ -33,7 +33,7 @@ if (isset($_GET['process']) && $_GET['process'] === 'error') {
 <body>
 <main id="connexion">
     <img src="assets\img\pip.svg" alt="logo">
-    <h1>Ça coule de source</h1>
+    <h1>La banque qui ne rigole pas</h1>
     <h2>CONNEXION</h2>
     <h3><?= $msgError ?></h3>
     <form action="login.php" method="POST" name="connexion">
@@ -50,7 +50,7 @@ if (isset($_GET['process']) && $_GET['process'] === 'error') {
             <label for="rgpd">Rester connecté</label>
         </div>
         <span class="margin-20">
-                vous n'avez pas encore de compte,  <a href="inscription.php">veuillez vous inscrire.</a>
+                Vous n'avez pas encore de compte,  <a href="inscription.php">veuillez vous inscrire.</a>
             </span>
         <button type="submit" value="OK">Se connecter</button>
     </form>

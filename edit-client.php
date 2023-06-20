@@ -119,7 +119,7 @@ else {
         <a href=""><img src="assets\img\pip.svg" alt="logo"></a>
         <div>
             <a href="gestions.php">Acceuil</a>
-            <a href="add-compte.php">Ajouter un compte à un clients</a>
+            <a href="add-compte.php">Ajouter un compte</a>
             <a href="login.php?logout">Conseiller : <?= $_SESSION["name"] ?><span>Déconnexion</span></a>
         </div>
 

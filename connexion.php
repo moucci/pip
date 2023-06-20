@@ -32,7 +32,7 @@ if (isset($_GET['process']) && $_GET['process'] === 'error') {
 <body>
 <main id="connexion">
     <img src="assets\img\pip.svg" alt="logo">
-    <h1>Ça coule de source</h1>
+    <h1>La banque qui ne rigole pas</h1>
     <h2>CONNEXION</h2>
     <h3><?= $msgError ?></h3>
     <form action="login.php" method="POST" name="connexion">

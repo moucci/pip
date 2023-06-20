@@ -81,7 +81,7 @@ if (!empty($_POST)) {
     <body>
     <main id="inscription">
         <img src="assets\img\pip.svg" alt="logo">
-        <h1>Ça coule de source</h1>
+        <h1>La banque qui ne rigole pas</h1>
         <h2>Inscription</h2>
         <h3 style="color: red"><?= (isset($msgError)) ? $msgError : '' ?></h3>
         <form action="inscription.php" method="post" name="inscription">

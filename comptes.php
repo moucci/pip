@@ -84,7 +84,7 @@ $datas = $req->fetchAll(PDO::FETCH_ASSOC);
 </header>
 
 <?php if (!empty($_GET["msg"]) && $_GET["msg"] === "depot-compte-success"): ?>
-    <p class="success">Le dépôt à bien était pris en compte </p>
+    <p class="success">Le dépôt a bien été pris en compte </p>
 <?php endif; ?>
 
 <?php if (!empty($_GET["msg"]) && $_GET["msg"] === "depot-compte-error"): ?>
@@ -92,7 +92,7 @@ $datas = $req->fetchAll(PDO::FETCH_ASSOC);
 <?php endif; ?>
 
 <?php if (!empty($_GET["msg"]) && $_GET["msg"] === "retrait-compte-success"): ?>
-    <p class="success">Le retraits à bien était pris en compte </p>
+    <p class="success">Le retrait a bien été pris en compte </p>
 <?php endif; ?>
 
 <?php if (!empty($_GET["msg"]) && $_GET["msg"] === "retrait-compte-error"): ?>
@@ -100,27 +100,27 @@ $datas = $req->fetchAll(PDO::FETCH_ASSOC);
 <?php endif; ?>
 
 <?php if (!empty($_GET["msg"]) && $_GET["msg"] === "delete-compte-success"): ?>
-    <p class="success">Le compte du client à été supprimé</p>
+    <p class="success">Le compte du client a été supprimé</p>
 <?php endif; ?>
 
 <?php if (!empty($_GET["msg"]) && $_GET["msg"] === "delete-compte-error"): ?>
-    <p class="error">Le compte du client n'a pas être supprimé</p>
+    <p class="error">Le compte du client n'a pas pu être supprimé</p>
 <?php endif; ?>
 
 <?php if (!empty($_GET["msg"]) && $_GET["msg"] === "add-compte-success"): ?>
-    <p class="success">Le compte à été ajouter pour le client</p>
+    <p class="success">Le compte à été ajouté pour le client</p>
 <?php endif; ?>
 
 <?php if (!empty($_GET["msg"]) && $_GET["msg"] === "add-compte-error"): ?>
-    <p class="error">Le compte à n'a pas pu être ajouter</p>
+    <p class="error">Le compte n'a pas pu être ajouté</p>
 <?php endif; ?>
 
 <?php if (!empty($_GET["msg"]) && $_GET["msg"] === "decouvert-compte-success"): ?>
-    <p class="success">le découvert à était mis à jour </p>
+    <p class="success">Le découvert a été mis à jour </p>
 <?php endif; ?>
 
 <?php if (!empty($_GET["msg"]) && $_GET["msg"] === "decouvert-compte-error"): ?>
-    <p class="error">le découvert n'a pas pu être mis à jour</p>
+    <p class="error">Le découvert n'a pas pu être mis à jour</p>
 <?php endif; ?>
 
 <?php

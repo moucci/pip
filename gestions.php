@@ -34,7 +34,7 @@ require_once("includes/config.php");
         </div>
 
     </nav>
-    <h1>List de vos clients</h1>
+    <h1>Liste de vos clients</h1>
 </header>
 
 
@@ -83,8 +83,7 @@ $clients = $requete->fetchAll(PDO::FETCH_ASSOC);
 
 if (empty($clients)):?>
 
-    <p class="une_alerte_trop_géniale">Vous ne gérez actuellement aucun pig... clients. Veuillez, s'il vous plait,
-        travaillez un minimum !</p>
+    <p class="une_alerte_trop_géniale">Vous avez actuellement zéro client.</p>
 
 <?php endif;
 
